@@ -20,3 +20,4 @@ function ting_extended_search_install() {
     ->condition('name', 'ting_extended_search', '=')
     ->execute();
 }
+

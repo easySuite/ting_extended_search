@@ -287,3 +287,4 @@ function ting_extended_search_submit(&$form, &$form_state) {
     form_set_error(NULL, t('Search is currently disabled.'), 'error');
   }
 }
+
