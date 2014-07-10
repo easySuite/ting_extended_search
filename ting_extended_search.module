@@ -1,0 +1,289 @@
+<?php
+/**
+ * @file
+ * Add extended search form.
+ */
+
+/**
+ * Implements hook_form_FORM_ID_alter().
+ */
+function ting_extended_search_form_search_block_form_alter(&$form, &$form_state) {
+  $ting_well_data = array(
+    'type' => array_merge(array('' => t('Choose type')), drupal_map_assoc(array_keys(variable_get('ting_well_types', array())))),
+    'source' => array_merge(array('' => t('Choose source')), drupal_map_assoc(array_keys(variable_get('ting_well_sources', array())))),
+    'language' => array(
+      '' => t('Choose language'),
+      'arabisk' => "arabisk",
+      'dansk' => "dansk",
+      'engelsk' => "engelsk",
+      'fransk' => "fransk",
+      'italiensk' => "italiensk",
+      'kalaallisut' => "kalaallisut",
+      'kinesisk' => "kinesisk",
+      'kroatisk' => "kroatisk",
+      'kurdisk' => "kurdisk",
+      'latin' => "latin",
+      'norsk' => "norsk",
+      'persisk' => "persisk",
+      'polsk' => "polsk",
+      'russisk' => "russisk",
+      'serbisk' => "serbisk",
+      'somalisk' => "somalisk",
+      'spansk' => "spansk",
+      'svensk' => "svensk",
+      'tamilsk' => "tamilsk",
+      'tyrkisk' => "tyrkisk",
+      'tysk' => "tysk",
+      'urdu' => "urdu",
+      'vietnamesisk' => "vietnamesisk",
+    ),
+    'branch' =>  array_merge(array('' => t('Choose a branch')), ding_provider_invoke('reservation', 'pickup_branches')),
+    'category' => array(
+      '' => t('Choose a target'),
+      'børnematerialer' => t('Children'),
+      'voksenmaterialer' => t('Adult'),
+    ),
+  );
+
+  // Define advanced fields.
+  $extended_fields = array(
+    'dkcclterm.ti' => array(
+      'key' => 'title',
+      'title' => t('Title'),
+      'description' => t('Enter title'),
+      'type' => 'textfield',
+    ),
+    'term.type' => array(
+      'key' => 'type',
+      'title' => t('Materialetype'),
+      'description' => t('Select type'),
+      'type' => 'select',
+      'options' => $ting_well_data['type'],
+    ),
+    'term.language' => array(
+      'key' => 'language',
+      'title' => t('Language'),
+      'description' => t('Select language'),
+      'type' => 'select',
+      'options' => $ting_well_data['language'],
+    ),
+    'term.creator' => array(
+      'key' => 'creator',
+      'title' => t('Author'),
+      'description' => t('Enter the author name'),
+      'type' => 'textfield',
+    ),
+    'term.subject' => array(
+      'key' => 'subject',
+      'title' => t('Subject'),
+      'description' => t('Enter subject keywords'),
+      'type' => 'textfield',
+    ),
+    'facet.acSource' => array(
+      'key' => 'source',
+      'title' => t('Kilde'),
+      'description' => t('Select source'),
+      'type' => 'select',
+      'options' => $ting_well_data['source'],
+    ),
+    'facet.dk5' => array(
+      'key' => 'dk5',
+      'title' => t('dk5'),
+      'description' => t('Enter dk5'),
+      'type' => 'textfield',
+    ),
+    'facet.branch' => array(
+      'key' => 'branch',
+      'index' => 'facet',
+      'title' => t('Branch'),
+      'description' => t('Branch'),
+      'type' => 'select',
+      'options' => $ting_well_data['branch'],
+    ),
+    'facet.date' => array(
+      'key' => 'date',
+      'index' => 'facet',
+      'title' => t('Year'),
+      'description' => t('Year'),
+      'type' => 'textfield',
+    ),
+    'facet.category' => array(
+      'key' => 'category',
+      'index' => 'facet',
+      'title' => t('Target'),
+      'description' => t('Target'),
+      'type' => 'select',
+      'options' => $ting_well_data['category'],
+    ),
+  );
+
+  if (arg(0) == 'search') {
+    $parts = explode('/', $_GET['q']);
+
+    // Lose 'search' and the search type.
+    array_shift($parts);
+    $type = array_shift($parts);
+    $search_query = implode('/', $parts);
+    $indexes = ting_search_extract_keys($search_query, array_keys($extended_fields));
+    $search_query = $indexes['q'];
+    unset($indexes['q']);
+
+    if ($type != 'ting' and !empty($indexes)) {
+      $search_query .= " " . implode(' ', $indexes);
+      $indexes = array();
+    }
+
+    // Set default value to the current search query.
+    $form['search_block_form']['#default_value'] = $search_query;
+  }
+
+  $form['advanced'] = array(
+    '#type' => 'fieldset',
+    '#title' => t('Advanced search'),
+    '#collapsible' => TRUE,
+    '#collapsed' => TRUE,
+    '#weight' => '101',
+    '#class' => 'extendsearch-advanced',
+    '#prefix' => '',
+    '#suffix' => '',
+    '#attached' => array(
+      'js' => array(
+        drupal_get_path('module', 'ting_extended_search') . '/js/ting_extended_search.js',
+      ),
+    ),
+  );
+
+  if (!empty($indexes)) {
+    $form['advanced']['#collapsed'] = FALSE;
+  }
+
+  foreach ($extended_fields as $name => $field) {
+    if ($field['type'] == 'select') {
+      $form['advanced'][$field['key']] = array(
+        '#type' => $field['type'],
+        '#options' => isset($field['options']) ? $field['options'] : '',
+        '#title' => $field['title'],
+        '#description' => $field['description'],
+        '#default_value' => isset($indexes[$name]) ? $indexes[$name] : '',
+      );
+    } else {
+      $form['advanced'][$field['key']] = array(
+        '#type' => $field['type'],
+        '#title' => $field['title'],
+        '#size' => 30,
+        '#maxlength' => 64,
+        '#description' => $field['description'],
+        '#default_value' => isset($indexes[$name]) ? $indexes[$name] : '',
+      );
+    }
+  }
+
+  // Override default search submit callback.
+  if ($form['#submit'][0] === 'ting_search_submit') {
+    unset($form['#submit'][0]);
+    $form['#submit'] = array('ting_extended_search_submit');
+  }
+}
+
+function ting_extended_search_submit(&$form, &$form_state) {
+  $controls = array();
+  // The search form relies on control of the redirect destination for its
+  // functionality, so we override any static destination set in the request,
+  // for example by drupal_access_denied() or drupal_not_found()
+  // (see http://drupal.org/node/292565).
+  if (isset($_GET['destination'])) {
+    unset($_GET['destination']);
+  }
+
+  $form_id = $form['form_id']['#value'];
+  $keys = $form_state['values'][$form_id];
+  $fields = array();
+
+  $extended_fields = array(
+    'creator' => 'term.creator',
+    'title' => 'dkcclterm.ti',
+    'subject' => 'term.subject',
+    'language' => 'term.language',
+    'type' => 'term.type',
+    'source' => 'facet.acSource',
+    'dk5' => 'facet.dk5',
+    'branch' => 'facet.branch',
+    'category' => 'facet.category',
+    'date' => 'facet.date',
+  );
+
+  $extended_facet_fields = array(
+    'branch' => 'facets[]=facet.branch',
+    'category' => 'facets[]=facet.category',
+  );
+
+  foreach ($extended_fields as $name => $index) {
+    if (!empty($form_state['values'][$name])) {
+      $value = $form_state['values'][$name];
+      $fields[] = $index . '=' . (strpos($value, ' ') ? '"' . $value . '"' : $value);
+    }
+  }
+
+  $q = array();
+  if (!empty($keys)) {
+    $q[] = $keys;
+  }
+  if (!empty($fields)) {
+    $q[] = '(' . implode(' AND ', $fields) . ')';
+  }
+  $q = implode(' AND ', $q);
+
+  // Extended facet fields.
+  $f = $form_state['values']['branch'];
+  if ($f != "") {
+    $controls['facets[]'] = 'facet.branch:' . $f;
+  }
+
+  $f = $form_state['values']['category'];
+  if ($f != "") {
+    $controls['facets[]'] = 'facet.category:' . $f;
+  }
+
+  $s = $form_state['values']['sort'];
+  if ($s != "") {
+    $controls['sort'] = $s;
+  }
+
+  $s = $form_state['values']['size'];
+  if ($s != "") {
+    $controls['size'] = $s;
+  }
+
+
+  // Check to see if the form was submitted empty.
+  // If it is empty, display an error message.
+  // (This method is used instead of setting #required to TRUE for this field
+  // because that results in a confusing error message.  It would say a plain
+  // "field is required" because the search keywords field has no title.
+  // The error message would also complain about a missing #title field.)
+  if ($q == '') {
+    form_set_error('keys', t('Please enter some keywords.'));
+  }
+  $search_info = array();
+  $request_path = arg();
+
+  if ($request_path[0] != 'search' || !isset($request_path[1])) {
+    $search_info = search_get_default_module_info();
+  }
+  else {
+    foreach (search_get_info() as $search_engine) {
+      if ($search_engine['path'] == $request_path[1]) {
+        $search_info = $search_engine;
+        break;
+      }
+    }
+  }
+  if (!empty($search_info['path']) && in_array($search_info['module'], variable_get('search_active_modules', array()))) {
+    $form_state['redirect'] = FALSE;
+    $url = 'search/' . $search_info['path'] . '/' . trim($q);
+    drupal_goto($url, array('query' => $controls));
+  }
+  else {
+    form_set_error(NULL, t('Search is currently disabled.'), 'error');
+  }
+}
