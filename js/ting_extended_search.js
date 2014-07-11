@@ -1,3 +1,7 @@
+/**
+ * @file JavaScript for extended search form
+ */
+
 (function($) {
   Drupal.behaviors.clearExtendForm = {
     attach:function(context, settings) {

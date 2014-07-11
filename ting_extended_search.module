@@ -193,10 +193,9 @@ function ting_extended_search_form_search_block_form_alter(&$form, &$form_state)
 }
 
 /**
- * Submit callback for search form.
- *  This function overrides ting_search_submit when module installed and enabled.
- * @param $form
- * @param $form_state
+ * Form submission handler for search_block_form().
+ *
+ * @see ting_extended_search_form_search_block_form_alter()
  */
 function ting_extended_search_submit(&$form, &$form_state) {
   $controls = array();
