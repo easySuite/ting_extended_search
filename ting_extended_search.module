@@ -8,9 +8,15 @@
  * Implements hook_form_FORM_ID_alter().
  */
 function ting_extended_search_form_search_block_form_alter(&$form, &$form_state) {
+  $ting_well_types = variable_get('ting_well_types', array());
+  $ting_well_sources = variable_get('ting_well_sources', array());
+  $type = array_merge(array('' => t('Choose type')), drupal_map_assoc(array_keys($ting_well_types)));
+  $source = array_merge(array('' => t('Choose source')), drupal_map_assoc(array_keys($ting_well_sources)));
+  $branch = array_merge(array('' => t('Choose a branch')), ding_provider_invoke('reservation', 'pickup_branches'));
+
   $ting_well_data = array(
-    'type' => array_merge(array('' => t('Choose type')), drupal_map_assoc(array_keys(variable_get('ting_well_types', array())))),
-    'source' => array_merge(array('' => t('Choose source')), drupal_map_assoc(array_keys(variable_get('ting_well_sources', array())))),
+    'type' => $type,
+    'source' => $source,
     'language' => array(
       '' => t('Choose language'),
       'arabisk' => "arabisk",
@@ -37,7 +43,7 @@ function ting_extended_search_form_search_block_form_alter(&$form, &$form_state)
       'urdu' => "urdu",
       'vietnamesisk' => "vietnamesisk",
     ),
-    'branch' =>  array_merge(array('' => t('Choose a branch')), ding_provider_invoke('reservation', 'pickup_branches')),
+    'branch' =>  $branch,
     'category' => array(
       '' => t('Choose a target'),
       'børnematerialer' => t('Children'),
@@ -128,7 +134,7 @@ function ting_extended_search_form_search_block_form_alter(&$form, &$form_state)
     $search_query = $indexes['q'];
     unset($indexes['q']);
 
-    if ($type != 'ting' and !empty($indexes)) {
+    if ($type != 'ting' && !empty($indexes)) {
       $search_query .= " " . implode(' ', $indexes);
       $indexes = array();
     }
@@ -162,17 +168,18 @@ function ting_extended_search_form_search_block_form_alter(&$form, &$form_state)
       $form['advanced'][$field['key']] = array(
         '#type' => $field['type'],
         '#options' => isset($field['options']) ? $field['options'] : '',
-        '#title' => $field['title'],
-        '#description' => $field['description'],
+        '#title' => check_plain($field['title']),
+        '#description' => check_plain($field['description']),
         '#default_value' => isset($indexes[$name]) ? $indexes[$name] : '',
       );
-    } else {
+    }
+    else {
       $form['advanced'][$field['key']] = array(
         '#type' => $field['type'],
-        '#title' => $field['title'],
+        '#title' => check_plain($field['title']),
         '#size' => 30,
         '#maxlength' => 64,
-        '#description' => $field['description'],
+        '#description' => check_plain($field['description']),
         '#default_value' => isset($indexes[$name]) ? $indexes[$name] : '',
       );
     }
@@ -185,6 +192,12 @@ function ting_extended_search_form_search_block_form_alter(&$form, &$form_state)
   }
 }
 
+/**
+ * Submit callback for search form.
+ *  This function overrides ting_search_submit when module installed and enabled.
+ * @param $form
+ * @param $form_state
+ */
 function ting_extended_search_submit(&$form, &$form_state) {
   $controls = array();
   // The search form relies on control of the redirect destination for its
@@ -254,14 +267,13 @@ function ting_extended_search_submit(&$form, &$form_state) {
     $controls['size'] = $s;
   }
 
-
   // Check to see if the form was submitted empty.
   // If it is empty, display an error message.
   // (This method is used instead of setting #required to TRUE for this field
   // because that results in a confusing error message.  It would say a plain
   // "field is required" because the search keywords field has no title.
   // The error message would also complain about a missing #title field.)
-  if ($q == '') {
+  if (empty($q)) {
     form_set_error('keys', t('Please enter some keywords.'));
   }
   $search_info = array();

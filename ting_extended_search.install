@@ -7,16 +7,16 @@
  * Implements hook_install().
  */
 function ting_extended_search_install() {
-  // Find out the weight of the ting_search module
+  // Find out the weight of the ting_search module.
   $weight = db_select('system', 's')
     ->fields('s', array('weight'))
     ->condition('name', 'ting_search', '=')
     ->execute()
     ->fetchField();
 
-  // Set ting_extended_search module to a weight 1 higher
+  // Set ting_extended_search module to a weight 1 higher.
   db_update('system')
-    ->fields(array('weight' => $weight +1))
+    ->fields(array('weight' => $weight + 1))
     ->condition('name', 'ting_extended_search', '=')
     ->execute();
 }
