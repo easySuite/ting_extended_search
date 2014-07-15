@@ -1,5 +1,6 @@
 /**
- * @file JavaScript for extended search form
+ * @file
+ * JavaScript for extended search form.
  */
 
 (function($) {
