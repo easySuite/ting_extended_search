@@ -71,6 +71,7 @@ function ting_extended_search_form_search_block_form_alter(&$form, &$form_state)
       'title' => t('Title'),
       'description' => t('Enter title'),
       'type' => 'textfield',
+      'attributes' => array('placeholder' => t('Enter title')),
     ),
     'term.language' => array(
       'key' => 'language',
@@ -84,6 +85,7 @@ function ting_extended_search_form_search_block_form_alter(&$form, &$form_state)
       'title' => t('Author'),
       'description' => t('Enter the author name'),
       'type' => 'textfield',
+      'attributes' => array('placeholder' => t('Enter the author name')),
     ),
     'term.type' => array(
       'key' => 'type',
@@ -97,6 +99,7 @@ function ting_extended_search_form_search_block_form_alter(&$form, &$form_state)
       'title' => t('Subject'),
       'description' => t('Enter subject keywords'),
       'type' => 'textfield',
+      'attributes' => array('placeholder' => t('Enter subject keywords')),
     ),
     'facet.acSource' => array(
       'key' => 'source',
@@ -110,6 +113,7 @@ function ting_extended_search_form_search_block_form_alter(&$form, &$form_state)
       'title' => t('dk5'),
       'description' => t('Enter dk5'),
       'type' => 'textfield',
+      'attributes' => array('placeholder' => t('Enter dk5')),
     ),
     'facet.branch' => array(
       'key' => 'branch',
@@ -125,6 +129,7 @@ function ting_extended_search_form_search_block_form_alter(&$form, &$form_state)
       'title' => t('Year'),
       'description' => t('Year'),
       'type' => 'textfield',
+      'attributes' => array('placeholder' => t('Year')),
     ),
     'facet.category' => array(
       'key' => 'category',
@@ -194,6 +199,7 @@ function ting_extended_search_form_search_block_form_alter(&$form, &$form_state)
         '#maxlength' => 64,
         '#description' => check_plain($field['description']),
         '#default_value' => isset($indexes[$name]) ? $indexes[$name] : '',
+        '#attributes' => $field['attributes'],
       );
     }
   }
