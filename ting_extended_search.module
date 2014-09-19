@@ -10,45 +10,58 @@
 function ting_extended_search_form_search_block_form_alter(&$form, &$form_state) {
   $ting_well_types = variable_get('ting_well_types', array());
   $ting_well_sources = variable_get('ting_well_sources', array());
-  $type = array_merge(array('' => t('Choose type')), drupal_map_assoc(array_keys($ting_well_types)));
-  $source = array_merge(array('' => t('Choose source')), drupal_map_assoc(array_keys($ting_well_sources)));
-  $branch = array_merge(array('' => t('Choose a branch')), ding_provider_invoke('reservation', 'pickup_branches'));
+
+  $branch_arr = ding_provider_invoke('reservation', 'pickup_branches');
+  $type_arr = drupal_map_assoc(array_keys($ting_well_types));
+  $source_arr = drupal_map_assoc(array_keys($ting_well_sources));
+  $category_arr = array(
+    'børnematerialer' => t('Children'),
+    'voksenmaterialer' => t('Adult'),
+  );
+  $language_arr = array(
+    'arabisk' => "arabisk",
+    'dansk' => "dansk",
+    'engelsk' => "engelsk",
+    'fransk' => "fransk",
+    'italiensk' => "italiensk",
+    'kalaallisut' => "kalaallisut",
+    'kinesisk' => "kinesisk",
+    'kroatisk' => "kroatisk",
+    'kurdisk' => "kurdisk",
+    'latin' => "latin",
+    'norsk' => "norsk",
+    'persisk' => "persisk",
+    'polsk' => "polsk",
+    'russisk' => "russisk",
+    'serbisk' => "serbisk",
+    'somalisk' => "somalisk",
+    'spansk' => "spansk",
+    'svensk' => "svensk",
+    'tamilsk' => "tamilsk",
+    'tyrkisk' => "tyrkisk",
+    'tysk' => "tysk",
+    'urdu' => "urdu",
+    'vietnamesisk' => "vietnamesisk",
+  );
+
+  asort($type_arr);
+  asort($branch_arr);
+  asort($source_arr);
+  asort($category_arr);
+  asort($language_arr);
+
+  $type = array_merge(array('' => t('Choose type')), $type_arr);
+  $source = array_merge(array('' => t('Choose source')), $source_arr);
+  $branch = array_merge(array('' => t('Choose a branch')), $branch_arr);
+  $category = array_merge(array('' => t('Choose category')), $category_arr);
+  $language = array_merge(array('' => t('Choose a target')), $language_arr);
 
   $ting_well_data = array(
     'type' => $type,
     'source' => $source,
-    'language' => array(
-      '' => t('Choose language'),
-      'arabisk' => "arabisk",
-      'dansk' => "dansk",
-      'engelsk' => "engelsk",
-      'fransk' => "fransk",
-      'italiensk' => "italiensk",
-      'kalaallisut' => "kalaallisut",
-      'kinesisk' => "kinesisk",
-      'kroatisk' => "kroatisk",
-      'kurdisk' => "kurdisk",
-      'latin' => "latin",
-      'norsk' => "norsk",
-      'persisk' => "persisk",
-      'polsk' => "polsk",
-      'russisk' => "russisk",
-      'serbisk' => "serbisk",
-      'somalisk' => "somalisk",
-      'spansk' => "spansk",
-      'svensk' => "svensk",
-      'tamilsk' => "tamilsk",
-      'tyrkisk' => "tyrkisk",
-      'tysk' => "tysk",
-      'urdu' => "urdu",
-      'vietnamesisk' => "vietnamesisk",
-    ),
+    'language' => $language,
     'branch' =>  $branch,
-    'category' => array(
-      '' => t('Choose a target'),
-      'børnematerialer' => t('Children'),
-      'voksenmaterialer' => t('Adult'),
-    ),
+    'category' => $category,
   );
 
   // Define advanced fields.
@@ -58,13 +71,6 @@ function ting_extended_search_form_search_block_form_alter(&$form, &$form_state)
       'title' => t('Title'),
       'description' => t('Enter title'),
       'type' => 'textfield',
-    ),
-    'term.type' => array(
-      'key' => 'type',
-      'title' => t('Materialetype'),
-      'description' => t('Select type'),
-      'type' => 'select',
-      'options' => $ting_well_data['type'],
     ),
     'term.language' => array(
       'key' => 'language',
@@ -78,6 +84,13 @@ function ting_extended_search_form_search_block_form_alter(&$form, &$form_state)
       'title' => t('Author'),
       'description' => t('Enter the author name'),
       'type' => 'textfield',
+    ),
+    'term.type' => array(
+      'key' => 'type',
+      'title' => t('Materialetype'),
+      'description' => t('Select type'),
+      'type' => 'select',
+      'options' => $ting_well_data['type'],
     ),
     'term.subject' => array(
       'key' => 'subject',
