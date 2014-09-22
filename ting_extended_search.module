@@ -50,11 +50,11 @@ function ting_extended_search_form_search_block_form_alter(&$form, &$form_state)
   asort($category_arr);
   asort($language_arr);
 
-  $type = array_merge(array('' => t('Choose type')), $type_arr);
+  $type = array_merge(array('' => t('Choose material type')), $type_arr);
   $source = array_merge(array('' => t('Choose source')), $source_arr);
-  $branch = array_merge(array('' => t('Choose a branch')), $branch_arr);
-  $category = array_merge(array('' => t('Choose category')), $category_arr);
-  $language = array_merge(array('' => t('Choose a target')), $language_arr);
+  $branch = array_merge(array('' => t('Choose library branch')), $branch_arr);
+  $category = array_merge(array('' => t('Choose target audience')), $category_arr);
+  $language = array_merge(array('' => t('Choose language')), $language_arr);
 
   $ting_well_data = array(
     'type' => $type,
@@ -83,14 +83,14 @@ function ting_extended_search_form_search_block_form_alter(&$form, &$form_state)
     'term.creator' => array(
       'key' => 'creator',
       'title' => t('Author'),
-      'description' => t('Enter the author name'),
+      'description' => t('Enter author name'),
       'type' => 'textfield',
-      'attributes' => array('placeholder' => t('Enter the author name')),
+      'attributes' => array('placeholder' => t('Enter author name')),
     ),
     'term.type' => array(
       'key' => 'type',
       'title' => t('Material type'),
-      'description' => t('Select type'),
+      'description' => t('Choose material type'),
       'type' => 'select',
       'options' => $ting_well_data['type'],
     ),
@@ -104,22 +104,22 @@ function ting_extended_search_form_search_block_form_alter(&$form, &$form_state)
     'facet.acSource' => array(
       'key' => 'source',
       'title' => t('Source'),
-      'description' => t('Select source'),
+      'description' => t('Choose source'),
       'type' => 'select',
       'options' => $ting_well_data['source'],
     ),
     'facet.dk5' => array(
       'key' => 'dk5',
       'title' => t('DK5'),
-      'description' => t('Enter dk5'),
+      'description' => t('Enter DK5 number'),
       'type' => 'textfield',
-      'attributes' => array('placeholder' => t('Enter dk5')),
+      'attributes' => array('placeholder' => t('Enter DK5 number')),
     ),
     'facet.branch' => array(
       'key' => 'branch',
       'index' => 'facet',
       'title' => t('Branch'),
-      'description' => t('Choose branch'),
+      'description' => t('Choose library branch'),
       'type' => 'select',
       'options' => $ting_well_data['branch'],
     ),
@@ -127,15 +127,15 @@ function ting_extended_search_form_search_block_form_alter(&$form, &$form_state)
       'key' => 'date',
       'index' => 'facet',
       'title' => t('Year'),
-      'description' => t('Type the year'),
+      'description' => t('Enter year of publish'),
       'type' => 'textfield',
-      'attributes' => array('placeholder' => t('Year')),
+      'attributes' => array('placeholder' => t('Enter year of publish')),
     ),
     'facet.category' => array(
       'key' => 'category',
       'index' => 'facet',
-      'title' => t('Target'),
-      'description' => t('Select target'),
+      'title' => t('Target audience'),
+      'description' => t('Choose target audience'),
       'type' => 'select',
       'options' => $ting_well_data['category'],
     ),
