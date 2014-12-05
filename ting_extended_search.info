@@ -1,6 +1,6 @@
 name = Ting extended search
 description = Extended search form for Ting.
-package = Ding!
+package = easyDDB
 version = "7.x-1.0"
 core = 7.x
 
