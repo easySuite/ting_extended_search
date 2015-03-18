@@ -232,15 +232,15 @@ function ting_extended_search_submit(&$form, &$form_state) {
 
   $extended_fields = array(
     'creator' => 'term.creator',
-    'title' => 'dkcclterm.ti',
+    'title' => 'term.title',
     'subject' => 'term.subject',
     'language' => 'term.language',
     'type' => 'term.type',
-    'source' => 'facet.acSource',
+    'source' => 'term.acSource',
     'dk5' => 'facet.dk5',
     'branch' => 'facet.branch',
-    'category' => 'facet.category',
-    'date' => 'facet.date',
+    'category' => 'term.category',
+    'date' => 'term.date',
   );
 
   $extended_facet_fields = array(

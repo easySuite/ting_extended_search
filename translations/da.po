@@ -1,0 +1,142 @@
+# $Id$
+#
+# LANGUAGE translation of Drupal (general)
+# Copyright YEAR NAME <EMAIL@ADDRESS>
+# Generated from files:
+#  ting_extended_search.module: n/a
+#  ting_extended_search.info: n/a
+#  js/ting_extended_search.js: n/a
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: PROJECT VERSION\n"
+"POT-Creation-Date: 2015-02-19 16:14+0100\n"
+"PO-Revision-Date: 2015-02-20 16:02+0100\n"
+"Last-Translator: Martin Cording <mc@inlead.dk>\n"
+"Language-Team: LANGUAGE <EMAIL@ADDRESS>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
+"Language: da\n"
+"X-Generator: Poedit 1.7.4\n"
+
+#: ting_extended_search.module:18
+msgid "Children"
+msgstr "Børn"
+
+#: ting_extended_search.module:19
+msgid "Adult"
+msgstr "Voksne"
+
+#: ting_extended_search.module:53;93
+msgid "Choose material type"
+msgstr "Du kan vælge en materialetype"
+
+#: ting_extended_search.module:54;107
+msgid "Choose source"
+msgstr "Du kan vælge en kilde"
+
+#: ting_extended_search.module:55;122
+msgid "Choose library branch"
+msgstr "Du kan vælge en filial"
+
+#: ting_extended_search.module:56;138
+msgid "Choose target audience"
+msgstr "Du kan vælge en målgruppe"
+
+#: ting_extended_search.module:57
+msgid "Choose language"
+msgstr "Du kan vælge sprog"
+
+#: ting_extended_search.module:71
+msgid "Title"
+msgstr "Titel"
+
+#: ting_extended_search.module:72;74
+msgid "Enter title"
+msgstr "Du kan indtaste titel eller del af titel"
+
+#: ting_extended_search.module:78
+msgid "Language"
+msgstr "Sprog"
+
+#: ting_extended_search.module:79
+msgid "Select language"
+msgstr "Du kan vælge sprog"
+
+#: ting_extended_search.module:85
+msgid "Author"
+msgstr "Forfatter"
+
+#: ting_extended_search.module:86;88
+msgid "Enter author name"
+msgstr "Du kan indtaste et navn eller en del af navnet"
+
+#: ting_extended_search.module:92
+msgid "Material type"
+msgstr "Materialetype"
+
+#: ting_extended_search.module:99
+msgid "Subject"
+msgstr "Emneord"
+
+#: ting_extended_search.module:100;102
+msgid "Enter subject keywords"
+msgstr "Du kan indtaste et emneord"
+
+#: ting_extended_search.module:106
+msgid "Source"
+msgstr "Kilde"
+
+#: ting_extended_search.module:113
+msgid "DK5"
+msgstr "DK5"
+
+#: ting_extended_search.module:114;116
+msgid "Enter DK5 number"
+msgstr "Du kan indtaste et DK5 nummer"
+
+#: ting_extended_search.module:121
+msgid "Branch"
+msgstr "Filial"
+
+#: ting_extended_search.module:129
+msgid "Year"
+msgstr "Udgivelsesår"
+
+#: ting_extended_search.module:130;132
+msgid "Enter year of publish"
+msgstr "Du kan indtaste et udgivelsesår"
+
+#: ting_extended_search.module:137
+msgid "Target audience"
+msgstr "Målgruppe"
+
+#: ting_extended_search.module:166
+msgid "Advanced search"
+msgstr "Ønsker du flere søgemuligheder? Klik her"
+
+#: ting_extended_search.module:295
+msgid "Please enter some keywords."
+msgstr "Skriv eksempelvis Harry Potter, krimi eller lignende.."
+
+#: ting_extended_search.module:317
+msgid "Search is currently disabled."
+msgstr "Søgning er pt. deaktiveret."
+
+#: ting_extended_search.info:0
+msgid "Ting extended search"
+msgstr "Avanceret søgning"
+
+#: ting_extended_search.info:0
+msgid "Extended search form for Ting."
+msgstr "Avanceret søgning til søgefeltet."
+
+#: ting_extended_search.info:0
+msgid "easyDDB"
+msgstr ""
+
+#: js/ting_extended_search.js:0
+msgid " AND "
+msgstr ""
