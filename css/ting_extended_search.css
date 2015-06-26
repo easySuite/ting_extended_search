@@ -1,0 +1,111 @@
+/**
+ * Mixins
+ *
+ * @author magnify
+ */
+/* Breakpoints
+   ========================================================================== */
+/* Media query
+   ========================================================================== */
+/* Breakpoints
+   ========================================================================== */
+/* Typography mixins
+ *
+ * These are mixins to allow for use in media queries
+   ========================================================================== */
+/* Availability
+   ========================================================================== */
+/* Pseudo arrow
+ *
+ * Usage example: pseudo-arrow(10px, #000, top, center, $offset: 20px)
+   ========================================================================== */
+/* Colors variables
+   ========================================================================== */
+.search {
+  position: relative;
+}
+@media only screen and (min-width: 769px) {
+  .search .form-actions > .form-submit {
+    margin-top: 0;
+  }
+}
+.search .form-actions > a {
+  min-height: 60px;
+  height: auto !important;
+  height: 60px;
+  display: inline-block;
+  margin: -2px 10px 0 0;
+  line-height: 60px;
+}
+@media only screen and (min-width: 769px) {
+  .search .form-actions > a {
+    background-color: transparent;
+    color: #333;
+    text-decoration: underline;
+  }
+}
+@media only screen and (max-width: 768px) {
+  .search .form-actions > a {
+    display: none;
+  }
+}
+.search .collapsible {
+  margin-bottom: 0;
+  background-color: #fff;
+}
+.search .collapsible:before, .search .collapsible:after {
+  content: "";
+  display: table;
+}
+.search .collapsible:after {
+  clear: both;
+}
+.search .collapsible.collapsed {
+  padding: 0;
+  height: 0;
+  border: 0;
+}
+.search .collapsible legend {
+  display: none;
+}
+.search .collapsible .description {
+  display: none;
+}
+.search .collapsible .fieldset-wrapper > .form-item {
+  margin-bottom: 10px;
+}
+@media only screen and (min-width: 769px) {
+  .search .collapsible .fieldset-wrapper > .form-item {
+    width: 44.44444%;
+    float: left;
+    margin-right: 11.11111%;
+  }
+  .search .collapsible .fieldset-wrapper > .form-item:nth-of-type(2n + 2) {
+    float: right;
+    margin-right: 0;
+  }
+}
+.search .collapsible input {
+  background-color: #dadada;
+  padding-right: 8px;
+  padding-left: 8px;
+  border: 1px solid #ccc;
+}
+.search .collapsible input,
+.search .collapsible select {
+  border-radius: 0;
+  min-height: 40px;
+  height: auto !important;
+  height: 40px;
+  width: 100%;
+}
+.search .collapsible label {
+  color: #000;
+  font-weight: 700;
+}
+
+@media only screen and (min-width: 769px) {
+  .page-search .search .form-actions .fieldset-title {
+    margin-top: 0;
+  }
+}
