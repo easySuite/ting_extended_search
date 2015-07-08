@@ -27,14 +27,6 @@ $gray-transparent-bg:     rgba( 0, 0, 0, 0.7);
 
   .form-actions {
 
-     > .form-submit {
-
-      @include from-medium() {
-        margin-top: 0;
-      }
-    }
-
-    
     > a {
       @include min-height(60px);
       display: inline-block;
