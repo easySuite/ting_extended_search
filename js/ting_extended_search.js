@@ -39,5 +39,10 @@
       $('#search-query-string').text(parts.join(Drupal.t(" AND ")));
     }
   };
+  
+  $(function () {
+    // Extended search button location.
+    $('.search .collapsible .fieldset-legend > a').insertBefore('.site-header .search .form-submit');
+  });
 })(jQuery);
 
