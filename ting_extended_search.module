@@ -3,6 +3,53 @@
  * @file
  * Add extended search form.
  */
+/**
+ * Implements hook_menu().
+ */
+function ting_extended_search_menu() {
+  $items = array();
+
+  $items['admin/config/ting/extented_search'] = array(
+    'title' => 'Ting extended search fields',
+    'description' => 'View and customize ting extended search fields.',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('ting_extended_search_settings_fields_form'),
+    'access arguments' => array('access ting extended search settings'),
+    'file' => 'ting_extended_search.admin.inc',
+    'weight' => -10,
+  );
+
+  $items['admin/config/ting/extented_search/fields'] = array(
+    'title' => 'Ting extended search fields',
+    'type' => MENU_DEFAULT_LOCAL_TASK,
+    'weight' => -10,
+  );
+
+  $items['admin/config/ting/extented_search/display'] = array(
+    'title' => 'Ting extended search display',
+    'description' => 'View and customize  ting extended search display.',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('ting_extended_search_settings_fields_form'),
+    'access arguments' => array('access ting extended search settings'),
+    'type' => MENU_LOCAL_TASK,
+    'file' => 'ting_extended_search.admin.inc',
+    'weight' => -9,
+  );
+
+  return $items;
+}
+
+/**
+ * Implements hook_permission().
+ */
+function ting_extended_search_permission() {
+  return array(
+    'access ting extended search settings' =>  array(
+      'title' => t('Ting extented search settings'),
+      'description' => t('Allows edit settings of ting extented search'),
+    ),
+  );
+}
 
 /**
  * Implements hook_form_FORM_ID_alter().
