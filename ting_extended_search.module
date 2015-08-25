@@ -8,6 +8,8 @@
  * Implements hook_form_FORM_ID_alter().
  */
 function ting_extended_search_form_search_block_form_alter(&$form, &$form_state) {
+  drupal_add_css(drupal_get_path('module', 'ting_extended_search') . '/css/ting_extended_search.css', array('type' => 'file'));
+
   $ting_well_types = variable_get('ting_well_types', array());
   $ting_well_sources = variable_get('ting_well_sources', array());
 

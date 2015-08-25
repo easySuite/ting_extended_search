@@ -3,15 +3,15 @@
 # LANGUAGE translation of Drupal (general)
 # Copyright YEAR NAME <EMAIL@ADDRESS>
 # Generated from files:
-#  ting_extended_search.module: n/a
-#  ting_extended_search.info: n/a
-#  js/ting_extended_search.js: n/a
+#  profiles/ding2/modules/ting_extended_search/ting_extended_search.module: n/a
+#  profiles/ding2/modules/ting_extended_search/ting_extended_search.info: n/a
+#  profiles/ding2/modules/ting_extended_search/js/ting_extended_search.js: n/a
 #
 #, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
-"POT-Creation-Date: 2015-02-19 16:14+0100\n"
+"POT-Creation-Date: 2015-07-28 11:31+0300\n"
 "PO-Revision-Date: YYYY-mm-DD HH:MM+ZZZZ\n"
 "Last-Translator: NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <EMAIL@ADDRESS>\n"
@@ -20,123 +20,123 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
 
-#: ting_extended_search.module:18
+#: profiles/ding2/modules/ting_extended_search/ting_extended_search.module:20
 msgid "Children"
 msgstr ""
 
-#: ting_extended_search.module:19
+#: profiles/ding2/modules/ting_extended_search/ting_extended_search.module:21
 msgid "Adult"
 msgstr ""
 
-#: ting_extended_search.module:53;93
+#: profiles/ding2/modules/ting_extended_search/ting_extended_search.module:55;95
 msgid "Choose material type"
 msgstr ""
 
-#: ting_extended_search.module:54;107
+#: profiles/ding2/modules/ting_extended_search/ting_extended_search.module:56;109
 msgid "Choose source"
 msgstr ""
 
-#: ting_extended_search.module:55;122
+#: profiles/ding2/modules/ting_extended_search/ting_extended_search.module:57;124
 msgid "Choose library branch"
 msgstr ""
 
-#: ting_extended_search.module:56;138
+#: profiles/ding2/modules/ting_extended_search/ting_extended_search.module:58;140
 msgid "Choose target audience"
 msgstr ""
 
-#: ting_extended_search.module:57
+#: profiles/ding2/modules/ting_extended_search/ting_extended_search.module:59
 msgid "Choose language"
 msgstr ""
 
-#: ting_extended_search.module:71
+#: profiles/ding2/modules/ting_extended_search/ting_extended_search.module:73
 msgid "Title"
 msgstr ""
 
-#: ting_extended_search.module:72;74
+#: profiles/ding2/modules/ting_extended_search/ting_extended_search.module:74;76
 msgid "Enter title"
 msgstr ""
 
-#: ting_extended_search.module:78
+#: profiles/ding2/modules/ting_extended_search/ting_extended_search.module:80
 msgid "Language"
 msgstr ""
 
-#: ting_extended_search.module:79
+#: profiles/ding2/modules/ting_extended_search/ting_extended_search.module:81
 msgid "Select language"
 msgstr ""
 
-#: ting_extended_search.module:85
+#: profiles/ding2/modules/ting_extended_search/ting_extended_search.module:87
 msgid "Author"
 msgstr ""
 
-#: ting_extended_search.module:86;88
+#: profiles/ding2/modules/ting_extended_search/ting_extended_search.module:88;90
 msgid "Enter author name"
 msgstr ""
 
-#: ting_extended_search.module:92
+#: profiles/ding2/modules/ting_extended_search/ting_extended_search.module:94
 msgid "Material type"
 msgstr ""
 
-#: ting_extended_search.module:99
+#: profiles/ding2/modules/ting_extended_search/ting_extended_search.module:101
 msgid "Subject"
 msgstr ""
 
-#: ting_extended_search.module:100;102
+#: profiles/ding2/modules/ting_extended_search/ting_extended_search.module:102;104
 msgid "Enter subject keywords"
 msgstr ""
 
-#: ting_extended_search.module:106
+#: profiles/ding2/modules/ting_extended_search/ting_extended_search.module:108
 msgid "Source"
 msgstr ""
 
-#: ting_extended_search.module:113
+#: profiles/ding2/modules/ting_extended_search/ting_extended_search.module:115
 msgid "DK5"
 msgstr ""
 
-#: ting_extended_search.module:114;116
+#: profiles/ding2/modules/ting_extended_search/ting_extended_search.module:116;118
 msgid "Enter DK5 number"
 msgstr ""
 
-#: ting_extended_search.module:121
+#: profiles/ding2/modules/ting_extended_search/ting_extended_search.module:123
 msgid "Branch"
 msgstr ""
 
-#: ting_extended_search.module:129
+#: profiles/ding2/modules/ting_extended_search/ting_extended_search.module:131
 msgid "Year"
 msgstr ""
 
-#: ting_extended_search.module:130;132
+#: profiles/ding2/modules/ting_extended_search/ting_extended_search.module:132;134
 msgid "Enter year of publish"
 msgstr ""
 
-#: ting_extended_search.module:137
+#: profiles/ding2/modules/ting_extended_search/ting_extended_search.module:139
 msgid "Target audience"
 msgstr ""
 
-#: ting_extended_search.module:166
+#: profiles/ding2/modules/ting_extended_search/ting_extended_search.module:168
 msgid "Advanced search"
 msgstr ""
 
-#: ting_extended_search.module:295
+#: profiles/ding2/modules/ting_extended_search/ting_extended_search.module:297
 msgid "Please enter some keywords."
 msgstr ""
 
-#: ting_extended_search.module:317
+#: profiles/ding2/modules/ting_extended_search/ting_extended_search.module:319
 msgid "Search is currently disabled."
 msgstr ""
 
-#: ting_extended_search.info:0
+#: profiles/ding2/modules/ting_extended_search/ting_extended_search.info:0
 msgid "Ting extended search"
 msgstr ""
 
-#: ting_extended_search.info:0
+#: profiles/ding2/modules/ting_extended_search/ting_extended_search.info:0
 msgid "Extended search form for Ting."
 msgstr ""
 
-#: ting_extended_search.info:0
+#: profiles/ding2/modules/ting_extended_search/ting_extended_search.info:0
 msgid "easyDDB"
 msgstr ""
 
-#: js/ting_extended_search.js:0
+#: profiles/ding2/modules/ting_extended_search/js/ting_extended_search.js:0
 msgid " AND "
 msgstr ""
 
