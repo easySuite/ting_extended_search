@@ -68,7 +68,7 @@ function ting_extended_search_form_search_block_form_alter(&$form, &$form_state)
 
   // Define advanced fields.
   $extended_fields = array(
-    'dkcclterm.ti' => array(
+    'term.title' => array(
       'key' => 'title',
       'title' => t('Title'),
       'description' => t('Enter title'),
@@ -103,14 +103,14 @@ function ting_extended_search_form_search_block_form_alter(&$form, &$form_state)
       'type' => 'textfield',
       'attributes' => array('placeholder' => t('Enter subject keywords')),
     ),
-    'facet.acSource' => array(
+    'term.acSource' => array(
       'key' => 'source',
       'title' => t('Source'),
       'description' => t('Choose source'),
       'type' => 'select',
       'options' => $ting_well_data['source'],
     ),
-    'facet.dk5' => array(
+    'dkcclphrase.ldk' => array(
       'key' => 'dk5',
       'title' => t('DK5'),
       'description' => t('Enter DK5 number'),
@@ -125,7 +125,7 @@ function ting_extended_search_form_search_block_form_alter(&$form, &$form_state)
       'type' => 'select',
       'options' => $ting_well_data['branch'],
     ),
-    'facet.date' => array(
+    'term.date' => array(
       'key' => 'date',
       'index' => 'facet',
       'title' => t('Year'),
@@ -133,7 +133,7 @@ function ting_extended_search_form_search_block_form_alter(&$form, &$form_state)
       'type' => 'textfield',
       'attributes' => array('placeholder' => t('Enter year of publish')),
     ),
-    'facet.category' => array(
+    'term.category' => array(
       'key' => 'category',
       'index' => 'facet',
       'title' => t('Target audience'),
@@ -239,15 +239,10 @@ function ting_extended_search_submit(&$form, &$form_state) {
     'language' => 'term.language',
     'type' => 'term.type',
     'source' => 'term.acSource',
-    'dk5' => 'facet.dk5',
+    'dk5' => 'dkcclphrase.ldk',
     'branch' => 'facet.branch',
     'category' => 'term.category',
     'date' => 'term.date',
-  );
-
-  $extended_facet_fields = array(
-    'branch' => 'facets[]=facet.branch',
-    'category' => 'facets[]=facet.category',
   );
 
   foreach ($extended_fields as $name => $index) {
@@ -266,15 +261,23 @@ function ting_extended_search_submit(&$form, &$form_state) {
   }
   $q = implode(' AND ', $q);
 
-  // Extended facet fields.
-  $f = $form_state['values']['branch'];
-  if ($f != "") {
-    $controls['facets[]'] = 'facet.branch:' . $f;
-  }
+  $facet_fields = array(
+    'subject',
+    'date',
+    'language',
+    'type',
+    'source',
+    'branch',
+    'category'
+  );
 
-  $f = $form_state['values']['category'];
-  if ($f != "") {
-    $controls['facets[]'] = 'facet.category:' . $f;
+  // Extended facet fields.
+  $submitted_fields = $form_state['values'];
+  foreach ($facet_fields as $field_name) {
+    $submitted_data = $submitted_fields[$field_name];
+    if ($submitted_data !== '') {
+      $controls['facets[]'] = 'facet.' . $field_name . ':' . $submitted_data;
+    }
   }
 
   $s = $form_state['values']['sort'];
