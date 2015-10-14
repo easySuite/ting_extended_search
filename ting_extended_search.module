@@ -110,7 +110,7 @@ function ting_extended_search_form_search_block_form_alter(&$form, &$form_state)
       'type' => 'select',
       'options' => $ting_well_data['source'],
     ),
-    'dkcclterm.dk' => array(
+    'dkcclphrase.ldk' => array(
       'key' => 'dk5',
       'title' => t('DK5'),
       'description' => t('Enter DK5 number'),
@@ -239,7 +239,7 @@ function ting_extended_search_submit(&$form, &$form_state) {
     'language' => 'term.language',
     'type' => 'term.type',
     'source' => 'term.acSource',
-    'dk5' => 'dkcclterm.dk',
+    'dk5' => 'dkcclphrase.ldk',
     'branch' => 'facet.branch',
     'category' => 'term.category',
     'date' => 'term.date',
