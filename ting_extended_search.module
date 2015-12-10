@@ -266,7 +266,7 @@ function ting_extended_search_submit(&$form, &$form_state) {
     'date',
     'language',
     'type',
-    'source',
+    'acSource',
     'branch',
     'category'
   );
