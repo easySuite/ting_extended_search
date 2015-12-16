@@ -305,6 +305,8 @@ function theme_ting_ext_search_fields_table(&$variables) {
 function theme_ting_ext_search_display_table(&$variables) {
   $form = $variables['form'];
   $header = $form['#header'];
+  $rows = array();
+
   foreach (element_children($form) as $id) {
       $row = array(
         'data' => array(),
