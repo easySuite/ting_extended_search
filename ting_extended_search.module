@@ -3,6 +3,67 @@
  * @file
  * Add extended search form.
  */
+/**
+ * Implements hook_menu().
+ */
+function ting_extended_search_menu() {
+  $items = array();
+
+  $items['admin/config/ting/extented_search'] = array(
+    'title' => 'Ting extended search fields',
+    'description' => 'View and customize ting extended search fields.',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('ting_extended_search_settings_fields_form'),
+    'access arguments' => array('access ting extended search settings'),
+    'file' => 'ting_extended_search.admin.inc',
+    'weight' => -10,
+  );
+
+  $items['admin/config/ting/extented_search/fields'] = array(
+    'title' => 'Ting extended search fields',
+    'type' => MENU_DEFAULT_LOCAL_TASK,
+    'weight' => -10,
+  );
+
+  $items['admin/config/ting/extented_search/display'] = array(
+    'title' => 'Ting extended search display',
+    'description' => 'View and customize  ting extended search display.',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('ting_extended_search_settings_display_form'),
+    'access arguments' => array('access ting extended search settings'),
+    'type' => MENU_LOCAL_TASK,
+    'file' => 'ting_extended_search.admin.inc',
+    'weight' => -9,
+  );
+
+  return $items;
+}
+
+/**
+ * Implements hook_permission().
+ */
+function ting_extended_search_permission() {
+  return array(
+    'access ting extended search settings' =>  array(
+      'title' => t('Ting extented search settings'),
+      'description' => t('Allows edit settings of ting extented search'),
+    ),
+  );
+}
+
+/**
+ * Implements hook_theme().
+ */
+function ting_extended_search_theme($existing, $type, $theme, $path) {
+  return array(
+    'ting_ext_search_fields_table' => array(
+      'render element' => 'form',
+    ),
+    'ting_ext_search_display_table' => array(
+      'render element' => 'form',
+    ),
+  );
+}
 
 /**
  * Implements hook_form_FORM_ID_alter().
@@ -16,133 +77,23 @@ function ting_extended_search_form_search_block_form_alter(&$form, &$form_state)
   $branch_arr = ding_provider_invoke('reservation', 'pickup_branches');
   $type_arr = drupal_map_assoc(array_keys($ting_well_types));
   $source_arr = drupal_map_assoc(array_keys($ting_well_sources));
-  $category_arr = array(
-    'børnematerialer' => t('Children'),
-    'voksenmaterialer' => t('Adult'),
-  );
-  $language_arr = array(
-    'arabisk' => "arabisk",
-    'dansk' => "dansk",
-    'engelsk' => "engelsk",
-    'fransk' => "fransk",
-    'italiensk' => "italiensk",
-    'kalaallisut' => "kalaallisut",
-    'kinesisk' => "kinesisk",
-    'kroatisk' => "kroatisk",
-    'kurdisk' => "kurdisk",
-    'latin' => "latin",
-    'norsk' => "norsk",
-    'persisk' => "persisk",
-    'polsk' => "polsk",
-    'russisk' => "russisk",
-    'serbisk' => "serbisk",
-    'somalisk' => "somalisk",
-    'spansk' => "spansk",
-    'svensk' => "svensk",
-    'tamilsk' => "tamilsk",
-    'tyrkisk' => "tyrkisk",
-    'tysk' => "tysk",
-    'urdu' => "urdu",
-    'vietnamesisk' => "vietnamesisk",
-  );
 
   asort($type_arr);
   asort($branch_arr);
   asort($source_arr);
-  asort($category_arr);
-  asort($language_arr);
 
-  $type = array_merge(array('' => t('Choose material type')), $type_arr);
-  $acSource = array_merge(array('' => t('Choose source')), $source_arr);
-  $branch = array_merge(array('' => t('Choose library branch')), $branch_arr);
-  $category = array_merge(array('' => t('Choose target audience')), $category_arr);
-  $language = array_merge(array('' => t('Choose language')), $language_arr);
-
-  $ting_well_data = array(
-    'type' => $type,
-    'acSource' => $acSource,
-    'language' => $language,
-    'branch' =>  $branch,
-    'category' => $category,
+  $options = array(
+    'ting_well_types' => $type_arr,
+    'ting_well_sources' => $source_arr,
+    'pickup_branches' => $branch_arr,
   );
 
-  // Define advanced fields.
-  $extended_fields = array(
-    'term.title' => array(
-      'key' => 'title',
-      'title' => t('Title'),
-      'description' => t('Enter title'),
-      'type' => 'textfield',
-      'attributes' => array('placeholder' => t('Enter title')),
-    ),
-    'term.language' => array(
-      'key' => 'language',
-      'title' => t('Language'),
-      'description' => t('Select language'),
-      'type' => 'select',
-      'options' => $ting_well_data['language'],
-    ),
-    'term.creator' => array(
-      'key' => 'creator',
-      'title' => t('Author'),
-      'description' => t('Enter author name'),
-      'type' => 'textfield',
-      'attributes' => array('placeholder' => t('Enter author name')),
-    ),
-    'term.type' => array(
-      'key' => 'type',
-      'title' => t('Material type'),
-      'description' => t('Choose material type'),
-      'type' => 'select',
-      'options' => $ting_well_data['type'],
-    ),
-    'term.subject' => array(
-      'key' => 'subject',
-      'title' => t('Subject'),
-      'description' => t('Enter subject keywords'),
-      'type' => 'textfield',
-      'attributes' => array('placeholder' => t('Enter subject keywords')),
-    ),
-    'term.acSource' => array(
-      'key' => 'acSource',
-      'title' => t('Source'),
-      'description' => t('Choose source'),
-      'type' => 'select',
-      'options' => $ting_well_data['acSource'],
-    ),
-    'dkcclphrase.ldk' => array(
-      'key' => 'dk5',
-      'title' => t('DK5'),
-      'description' => t('Enter DK5 number'),
-      'type' => 'textfield',
-      'attributes' => array('placeholder' => t('Enter DK5 number')),
-    ),
-    'facet.branch' => array(
-      'key' => 'branch',
-      'index' => 'facet',
-      'title' => t('Branch'),
-      'description' => t('Choose library branch'),
-      'type' => 'select',
-      'options' => $ting_well_data['branch'],
-    ),
-    'term.date' => array(
-      'key' => 'date',
-      'index' => 'facet',
-      'title' => t('Year'),
-      'description' => t('Enter year of publish'),
-      'type' => 'textfield',
-      'attributes' => array('placeholder' => t('Enter year of publish')),
-    ),
-    'term.category' => array(
-      'key' => 'category',
-      'index' => 'facet',
-      'title' => t('Target audience'),
-      'description' => t('Choose target audience'),
-      'type' => 'select',
-      'options' => $ting_well_data['category'],
-    ),
-  );
-
+  $fields = variable_get('ting_ext_search_fields_settings', array());
+  $display = variable_get('ting_ext_search_display_settings', array());
+  $fields_names = array();
+  foreach ($fields as $field) {
+    $fields_names[] = $field['index'];
+  }
   if (arg(0) == 'search') {
     $parts = explode('/', $_GET['q']);
 
@@ -150,7 +101,7 @@ function ting_extended_search_form_search_block_form_alter(&$form, &$form_state)
     array_shift($parts);
     $type = array_shift($parts);
     $search_query = implode('/', $parts);
-    $indexes = ting_search_extract_keys($search_query, array_keys($extended_fields));
+    $indexes = ting_search_extract_keys($search_query, $fields_names);
     $search_query = $indexes['q'];
     unset($indexes['q']);
 
@@ -172,6 +123,7 @@ function ting_extended_search_form_search_block_form_alter(&$form, &$form_state)
     '#class' => 'extendsearch-advanced',
     '#prefix' => '',
     '#suffix' => '',
+    '#tree' => TRUE,
     '#attached' => array(
       'js' => array(
         drupal_get_path('module', 'ting_extended_search') . '/js/ting_extended_search.js',
@@ -179,30 +131,56 @@ function ting_extended_search_form_search_block_form_alter(&$form, &$form_state)
     ),
   );
 
+  $form['advanced']['left'] = array(
+    '#prefix' => '<div id="ting-ext-search-left">',
+    '#suffix' => '</div>',
+  );
+
+  $form['advanced']['right'] = array(
+    '#prefix' => '<div id="ting-ext-search-right">',
+    '#suffix' => '</div>',
+  );
+
   if (!empty($indexes)) {
     $form['advanced']['#collapsed'] = FALSE;
   }
-
-  foreach ($extended_fields as $name => $field) {
-    if ($field['type'] == 'select') {
-      $form['advanced'][$field['key']] = array(
-        '#type' => $field['type'],
-        '#options' => isset($field['options']) ? $field['options'] : '',
-        '#title' => check_plain($field['title']),
-        '#description' => check_plain($field['description']),
-        '#default_value' => isset($indexes[$name]) ? $indexes[$name] : '',
+  for ($i=0; $i < count($fields); $i++) {
+    if (!$display[$i]['status'])
+      continue;
+    if ($fields[$i]['type'] == 'textfield') {
+      $form['advanced'][$display[$i]['column']][$fields[$i]['index']] = array(
+        '#type' => $fields[$i]['type'],
+        '#size' => 30,
+        '#maxlength' => 64,
+        '#title' => $fields[$i]['title'],
+        '#attributes' =>array('placeholder' => $fields[$i]['placeholder']),
+        '#default_value' => isset($indexes[$fields[$i]['index']]) ? $indexes[$fields[$i]['index']] : '',
       );
     }
     else {
-      $form['advanced'][$field['key']] = array(
-        '#type' => $field['type'],
-        '#title' => check_plain($field['title']),
-        '#size' => 30,
-        '#maxlength' => 64,
-        '#description' => check_plain($field['description']),
-        '#default_value' => isset($indexes[$name]) ? $indexes[$name] : '',
-        '#attributes' => $field['attributes'],
+      $form['advanced'][$display[$i]['column']][$fields[$i]['index']] = array(
+        '#type' => $fields[$i]['type'],
+        '#title' => check_plain($fields[$i]['title']),
+        '#default_value' => isset($indexes[$fields[$i]['index']]) ? $indexes[$fields[$i]['index']] : '',
       );
+
+      if ($fields[$i]['values']['type'] == 'custom_list') {
+        $values = array_merge(array('' => $fields[$i]['placeholder']), $fields[$i]['values']['list']);
+        $form['advanced'][$display[$i]['column']][$fields[$i]['index']]['#options'] = $values;
+      } else {
+        $values = $options[$fields[$i]['values']['type']];
+        if (in_array($display[$i]['sort'], array('alphabetic_asc', 'numeric_asc'))) {
+          $type = $display[$i]['sort'] == 'alphabetic_asc' ? SORT_STRING : SORT_NUMERIC;
+          sort($values, $type);
+        } else {
+          $type = $display[$i]['sort'] == 'alphabetic_desc' ? SORT_STRING : SORT_NUMERIC;
+          rsort($values, $type);
+        }
+        if ($fields[$i]['values']['type'] == 'dropdown') {
+          $values = array_merge(array('' => $fields[$i]['placeholder']), $values);
+        }
+        $form['advanced'][$display[$i]['column']][$fields[$i]['index']]['#options'] = $values;
+      }
     }
   }
 
@@ -230,25 +208,14 @@ function ting_extended_search_submit(&$form, &$form_state) {
 
   $form_id = $form['form_id']['#value'];
   $keys = $form_state['values'][$form_id];
+  $values = $form_state['values']['advanced'];
   $fields = array();
 
-  $extended_fields = array(
-    'creator' => 'term.creator',
-    'title' => 'term.title',
-    'subject' => 'term.subject',
-    'language' => 'term.language',
-    'type' => 'term.type',
-    'acSource' => 'term.acSource',
-    'dk5' => 'dkcclphrase.ldk',
-    'branch' => 'facet.branch',
-    'category' => 'term.category',
-    'date' => 'term.date',
-  );
-
-  foreach ($extended_fields as $name => $index) {
-    if (!empty($form_state['values'][$name])) {
-      $value = $form_state['values'][$name];
-      $fields[] = $index . '=' . (strpos($value, ' ') ? '"' . $value . '"' : $value);
+  foreach ($values as $column) {
+    foreach ($column as $index => $value) {
+      if (empty($value)) {
+        $fields[] = $index . '=' . (strpos($value, ' ') ? '"' . $value . '"' : $value);
+      }
     }
   }
 
@@ -260,25 +227,6 @@ function ting_extended_search_submit(&$form, &$form_state) {
     $q[] = '(' . implode(' AND ', $fields) . ')';
   }
   $q = implode(' AND ', $q);
-
-  $facet_fields = array(
-    'subject',
-    'date',
-    'language',
-    'type',
-    'acSource',
-    'branch',
-    'category'
-  );
-
-  // Extended facet fields.
-  $submitted_fields = $form_state['values'];
-  foreach ($facet_fields as $field_name) {
-    $submitted_data = $submitted_fields[$field_name];
-    if ($submitted_data !== '') {
-      $controls['facets[]'] = 'facet.' . $field_name . ':' . $submitted_data;
-    }
-  }
 
   $s = $form_state['values']['sort'];
   if ($s != "") {
@@ -323,3 +271,64 @@ function ting_extended_search_submit(&$form, &$form_state) {
   }
 }
 
+/**
+ * Theme function for fields settings form.
+ */
+function theme_ting_ext_search_fields_table(&$variables) {
+  $form = $variables['form'];
+  $header = $form['#header'];
+  foreach (element_children($form) as $id) {
+    if (is_numeric($id)) {
+      $row = array();
+      foreach (element_children($form[$id]) as $child_id) {
+        if ($child_id == 'values') {
+          $row[] = drupal_render($form[$id][$child_id]['type']) . drupal_render($form[$id][$child_id]['list']);
+        } else {
+          $row[] = drupal_render($form[$id][$child_id]);
+        }
+      }
+      $rows[] = $row;
+    }
+  }
+
+  $output = theme('table', array(
+    'header' => $header,
+    'rows' => $rows,
+  ));
+
+  $output .= drupal_render_children($form);
+
+  return $output;
+}
+
+/**
+ * Theme function for display settings form.
+ */
+function theme_ting_ext_search_display_table(&$variables) {
+  $form = $variables['form'];
+  $header = $form['#header'];
+  $rows = array();
+
+  foreach (element_children($form) as $id) {
+      $row = array(
+        'data' => array(),
+        'class' => array('draggable'),
+      );
+      foreach (element_children($form[$id]) as $child_id) {
+          $row['data'][] = drupal_render($form[$id][$child_id]);
+      }
+      $rows[] = $row;
+  }
+
+  drupal_add_tabledrag('ting-ext-search-display-table', 'order', 'sibling', 'display-weight');
+
+  $output = theme('table', array(
+    'header' => $header,
+    'rows' => $rows,
+    'attributes' => array('id' => 'ting-ext-search-display-table'),
+  ));
+
+  $output .= drupal_render_children($form);
+
+  return $output;
+}
