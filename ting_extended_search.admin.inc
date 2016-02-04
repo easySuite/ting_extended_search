@@ -198,6 +198,7 @@ function ting_extended_search_settings_display_form($form, &$forms_state) {
 
   $fields = variable_get('ting_ext_search_fields_settings', array());
   $display = variable_get('ting_ext_search_display_settings', array());
+
   if (!isset($form_state['fields_count'])) {
     $form_state['fields_count'] = empty($fields) ? 0 : count($fields);
   }
@@ -219,7 +220,7 @@ function ting_extended_search_settings_display_form($form, &$forms_state) {
     $form['display'][$i]['title'] = array(
       '#type' => 'textfield',
       '#disabled' => TRUE,
-      '#default_value' => isset($fields[$i]['title']) ? $fields[$i]['title'] : '',
+      '#default_value' => isset($display[$i]['title']) ? $display[$i]['title'] : '',
     );
 
     $form['display'][$i]['column'] = array(
@@ -238,10 +239,9 @@ function ting_extended_search_settings_display_form($form, &$forms_state) {
       '#type' => 'checkbox',
       '#default_value' => isset($display[$i]['status']) ? $display[$i]['status'] : 1,
     );
-
     $form['display'][$i]['weight'] = array(
       '#type' => 'weight',
-      '#default_value' => (isset($display['weight'])) ? $display['weight'] : 0,
+      '#default_value' => (isset($display[$i]['weight'])) ? $display[$i]['weight'] : 0,
       '#attributes' => array(
         'class' => array('display-weight'),
       )
@@ -261,9 +261,9 @@ function ting_extended_search_settings_display_form($form, &$forms_state) {
 function ting_extended_search_settings_display_form_submit($form, &$form_state) {
   $display = $form_state['values']['display'];
   uasort($display, function($a, $b) {
-    if ($a == $b)
+    if ($a['weight'] == $b['weight'])
       return 0;
-    return $a < $b ? -1 : 1;
+    return $a['weight'] < $b['weight'] ? -1 : 1;
   });
   $display = array_values($display);
   variable_set('ting_ext_search_display_settings', $display);

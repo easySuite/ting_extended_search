@@ -1,6 +1,12 @@
 <?php
 /**
  * @file
+ * Code for the Ting extended search feature.
+ */
+
+include_once 'ting_extended_search.features.inc';
+/**
+ * @file
  * Add extended search form.
  */
 /**
