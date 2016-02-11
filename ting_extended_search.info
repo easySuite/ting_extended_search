@@ -1,6 +1,13 @@
 name = Ting extended search
 description = Extended search form for Ting.
+core = 7.x
 package = easyDDB
 version = 7.x-2.3.1+easy
-core = 7.x
+dependencies[] = ctools
+dependencies[] = strongarm
 configure = admin/config/ting/extented_search
+features[ctools][] = strongarm:strongarm:1
+features[features_api][] = api:2
+features[variable][] = ting_ext_search_display_settings
+features[variable][] = ting_ext_search_fields_settings
+mtime = 1454590383
