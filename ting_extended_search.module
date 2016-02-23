@@ -16,19 +16,30 @@ function ting_extended_search_menu() {
   $items = array();
 
   $items['admin/config/ting/extented_search'] = array(
-    'title' => 'Ting extended search fields',
-    'description' => 'View and customize ting extended search fields.',
+    'title' => 'Ting extended search setting',
+    'description' => 'Setting of ting extended search.',
     'page callback' => 'drupal_get_form',
-    'page arguments' => array('ting_extended_search_settings_fields_form'),
+    'page arguments' => array('ting_extended_search_settings_form'),
     'access arguments' => array('access ting extended search settings'),
     'file' => 'ting_extended_search.admin.inc',
     'weight' => -10,
   );
 
-  $items['admin/config/ting/extented_search/fields'] = array(
-    'title' => 'Ting extended search fields',
+  $items['admin/config/ting/extented_search/settings'] = array(
+    'title' => 'Ting extended search setting',
     'type' => MENU_DEFAULT_LOCAL_TASK,
     'weight' => -10,
+  );
+
+  $items['admin/config/ting/extented_search/fields'] = array(
+      'title' => 'Ting extended search fields',
+      'description' => 'View and customize ting extended search fields.',
+      'page callback' => 'drupal_get_form',
+      'page arguments' => array('ting_extended_search_settings_fields_form'),
+      'access arguments' => array('access ting extended search settings'),
+      'file' => 'ting_extended_search.admin.inc',
+      'type' => MENU_LOCAL_TASK,
+      'weight' => -9,
   );
 
   $items['admin/config/ting/extented_search/display'] = array(
@@ -39,7 +50,7 @@ function ting_extended_search_menu() {
     'access arguments' => array('access ting extended search settings'),
     'type' => MENU_LOCAL_TASK,
     'file' => 'ting_extended_search.admin.inc',
-    'weight' => -9,
+    'weight' => -8,
   );
 
   return $items;

@@ -8,6 +8,21 @@
 /**
  * Settings forms of fields.
  */
+function ting_extended_search_settings_form($form, &$form_state)  {
+
+  $form['ting_extended_search_search_result'] = array(
+    '#type' => 'checkbox',
+    '#title' => t('Show advanced search on search'),
+    '#desciption' => t('Indicates when advanced search should be displayed at search result page.'),
+    '#default_value' => variable_get('ting_extended_search_search_result', false),
+  );
+
+  return system_settings_form($form);
+}
+
+/**
+ * Settings forms of fields.
+ */
 function ting_extended_search_settings_fields_form($form, &$form_state) {
   $form = array(
     '#tree' => TRUE,
