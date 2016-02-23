@@ -80,7 +80,9 @@ function ting_extended_search_form_search_block_form_alter(&$form, &$form_state)
   $ting_well_types = variable_get('ting_well_types', array());
   $ting_well_sources = variable_get('ting_well_sources', array());
 
-  $branch_arr = ding_provider_invoke('reservation', 'pickup_branches');
+  $type = _ding_provider_get_provider('reservation');
+  $function = $type['module'] . '_' . (isset($type['prefix']) ? $type['prefix'] . '_' : '') . 'pickup_branches';
+  $branch_arr = ($type && function_exists($function)) ? ding_provider_invoke('reservation', 'pickup_branches') : array();
   $type_arr = drupal_map_assoc(array_keys($ting_well_types));
   $source_arr = drupal_map_assoc(array_keys($ting_well_sources));
 
