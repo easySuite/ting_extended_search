@@ -16,6 +16,16 @@
         $("#edit-search-block-form--2").val('');
         return false;
       });
+      var foldout = Drupal.settings.ting_extended_search["ting_extended_search_foldout_event"];
+      if (foldout) {
+        $('.search .collapsible .fieldset-legend > a').one('mouseenter', function() {
+          $(this).click();
+        })
+
+        $('.search #edit-advanced').one('mouseout', function() {
+          $(this).click();
+        })
+      }
     }
   };
 

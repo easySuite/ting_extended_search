@@ -17,6 +17,13 @@ function ting_extended_search_settings_form($form, &$form_state)  {
     '#default_value' => variable_get('ting_extended_search_search_result', false),
   );
 
+  $form['ting_extended_search_foldout_event'] = array(
+    '#type' => 'checkbox',
+    '#title' => t('Fouldout advanced search on mouseover event'),
+    '#desciption' => t('Indicates which event will be used for opening advanced search container.'),
+    '#default_value' => variable_get('ting_extended_search_foldout_event', false),
+  );
+
   return system_settings_form($form);
 }
 
