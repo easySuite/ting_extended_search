@@ -16,16 +16,7 @@
         $("#edit-search-block-form--2").val('');
         return false;
       });
-      var foldout = Drupal.settings.ting_extended_search["ting_extended_search_foldout_event"];
-      if (foldout) {
-        $('.search .collapsible .fieldset-legend > a').one('mouseenter', function() {
-          $(this).click();
-        })
-
-        $('.search #edit-advanced').one('mouseout', function() {
-          $(this).click();
-        })
-      }
+      attachFoldOut();
     }
   };
 
@@ -49,10 +40,27 @@
       $('#search-query-string').text(parts.join(Drupal.t(" AND ")));
     }
   };
+
+  $(document).ready(function() {
+    attachFoldOut();
+  });
   
   $(function () {
     // Extended search button location.
     $('.search .collapsible .fieldset-legend > a').insertBefore('.site-header .search .form-submit');
   });
+
+  function attachFoldOut() {
+    var foldout = Drupal.settings.ting_extended_search["ting_extended_search_foldout_event"];
+    if (foldout) {
+      $('.search .collapsible .fieldset-legend > a, .search .form-actions > a.fieldset-title').on('mouseenter', function() {
+        $('.search .form-actions > a.fieldset-title').click();
+      })
+
+      $('#edit-advanced').on('mouseleave', function() {
+        $('.search .form-actions > a.fieldset-title').click();
+      })
+    }
+  }
 })(jQuery);
 
