@@ -191,14 +191,15 @@ function ting_extended_search_form_search_block_form_alter(&$form, &$form_state)
         $values = $options[$fields[$i]['values']['type']];
         if (in_array($display[$i]['sort'], array('alphabetic_asc', 'numeric_asc'))) {
           $type = $display[$i]['sort'] == 'alphabetic_asc' ? SORT_STRING : SORT_NUMERIC;
-          sort($values, $type);
+          ksort($values, $type);
         } else {
           $type = $display[$i]['sort'] == 'alphabetic_desc' ? SORT_STRING : SORT_NUMERIC;
-          rsort($values, $type);
+          krsort($values, $type);
         }
         if ($fields[$i]['values']['type'] == 'dropdown') {
           $values = array_merge(array('' => $fields[$i]['placeholder']), $values);
         }
+        array_unshift($values, t('-Any-'));
         $form['advanced'][$display[$i]['column']][$fields[$i]['index']]['#options'] = $values;
       }
     }
@@ -229,6 +230,7 @@ function ting_extended_search_submit(&$form, &$form_state) {
   $form_id = $form['form_id']['#value'];
   $keys = $form_state['values'][$form_id];
   $values = $form_state['values']['advanced'];
+
   $fields = array();
   foreach ($values as $column) {
     foreach ($column as $index => $value) {
