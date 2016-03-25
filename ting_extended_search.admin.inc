@@ -27,6 +27,18 @@ function ting_extended_search_settings_form($form, &$form_state)  {
   return system_settings_form($form);
 }
 
+function _ting_extended_search_field_exists($value, $form, $form_state) {
+  $count = 0;
+  $fields = $form_state['values']['fields'];
+  unset($fields['more']);
+  foreach ($fields as $field) {
+    if ($value == $field['machine_name']) {
+      $count++;
+    }
+  }
+  return ($count > 1);
+}
+
 /**
  * Settings forms of fields.
  */
@@ -43,6 +55,7 @@ function ting_extended_search_settings_fields_form($form, &$form_state) {
     '#theme' => 'ting_ext_search_fields_table',
     '#header' => array(
       t('Title'),
+      '',
       t('Placeholder'),
       t('Well index'),
       t('Type'),
@@ -70,10 +83,19 @@ function ting_extended_search_settings_fields_form($form, &$form_state) {
     'custom_list' => t('Custom list'),
   );
 
-  for ($i=0; $i < $fields_count; $i++) {
+  for ($i = 0; $i < $fields_count; $i++) {
     $form['fields'][$i]['title'] = array(
       '#type' => 'textfield',
       '#default_value' => isset($fields[$i]['title']) ? $fields[$i]['title'] : '',
+    );
+
+    $form['fields'][$i]['machine_name'] = array(
+      '#type' => 'machine_name',
+      '#default_value' => isset($fields[$i]['machine_name']) ? $fields[$i]['machine_name'] : '',
+      '#machine_name' => array(
+        'source' => array('fields', $i, 'title'),
+        'exists' => '_ting_extended_search_field_exists',
+      ),
     );
 
     $form['fields'][$i]['placeholder'] = array(
@@ -123,6 +145,7 @@ function ting_extended_search_settings_fields_form($form, &$form_state) {
       ),
     );
   }
+
   $form['fields']['more'] = array(
     '#type' => 'submit',
     '#value' => t('Add another one'),
@@ -186,13 +209,15 @@ function ting_extended_search_settings_fields_form_validate($form, &$form_state)
 function ting_extended_search_settings_fields_form_submit($form, &$form_state) {
   $fields = $form_state['values']['fields'];
   $fields = array_filter($fields, function($f) {
-    return !empty($f['title']) && !empty($f['placeholder']) && !empty($f['index']);
+    return !empty($f['title']) && !empty($f['placeholder']) && !empty($f['index']) && !empty($f['machine_name']);
   });
+
   uasort($fields, function($a, $b) {
     if ($a == $b)
       return 0;
     return $a < $b ? -1 : 1;
   });
+
   $fields = array_values($fields);
   variable_set('ting_ext_search_fields_settings', $fields);
 }
@@ -200,7 +225,7 @@ function ting_extended_search_settings_fields_form_submit($form, &$form_state) {
 /**
  * Settings forms of fields.
  */
-function ting_extended_search_settings_display_form($form, &$forms_state) {
+function ting_extended_search_settings_display_form($form, &$form_state) {
   $form = array(
     '#tree' => TRUE,
   );
@@ -219,7 +244,7 @@ function ting_extended_search_settings_display_form($form, &$forms_state) {
   );
 
   $fields = variable_get('ting_ext_search_fields_settings', array());
-  $display = variable_get('ting_ext_search_display_settings', array());
+  $form_state['fields'] = $fields;
 
   if (!isset($form_state['fields_count'])) {
     $form_state['fields_count'] = empty($fields) ? 0 : count($fields);
@@ -238,35 +263,39 @@ function ting_extended_search_settings_display_form($form, &$forms_state) {
     'numeric_desc' => t('Numeric(reverse)'),
   );
 
-  for ($i=0; $i < $fields_count; $i++) {
+  for ($i = 0; $i < $fields_count; $i++) {
     $form['display'][$i]['title'] = array(
       '#type' => 'textfield',
       '#disabled' => TRUE,
-      '#default_value' => isset($display[$i]['title']) ? $display[$i]['title'] : '',
+      '#default_value' => isset($fields[$i]['title']) ? $fields[$i]['title'] : '',
     );
 
     $form['display'][$i]['column'] = array(
       '#type' => 'radios',
       '#options' => $columns,
-      '#default_value' => isset($display[$i]['column']) ? $display[$i]['column'] : 'left',
+      '#default_value' => isset($fields[$i]['column']) ? $fields[$i]['column'] : 'left',
     );
 
     $form['display'][$i]['sort'] = array(
       '#type' => 'select',
       '#options' => $sort_types,
-      '#default_value' => isset($display[$i]['sort']) ? $display[$i]['sort'] : 'alphabetic_asc',
+      '#default_value' => isset($fields[$i]['sort']) ? $fields[$i]['sort'] : 'alphabetic_asc',
     );
 
     $form['display'][$i]['status'] = array(
       '#type' => 'checkbox',
-      '#default_value' => isset($display[$i]['status']) ? $display[$i]['status'] : 1,
+      '#default_value' => isset($fields[$i]['status']) ? $fields[$i]['status'] : 1,
     );
     $form['display'][$i]['weight'] = array(
       '#type' => 'weight',
-      '#default_value' => (isset($display[$i]['weight'])) ? $display[$i]['weight'] : 0,
+      '#default_value' => (isset($fields[$i]['weight'])) ? $fields[$i]['weight'] : 0,
       '#attributes' => array(
         'class' => array('display-weight'),
       )
+    );
+    $form['display'][$i]['machine_name'] = array(
+      '#type' => 'hidden',
+      '#value' => $fields[$i]['machine_name'],
     );
   }
 
@@ -282,11 +311,24 @@ function ting_extended_search_settings_display_form($form, &$forms_state) {
  */
 function ting_extended_search_settings_display_form_submit($form, &$form_state) {
   $display = $form_state['values']['display'];
-  uasort($display, function($a, $b) {
+  $fields = $form_state['fields'];
+
+  for ($i = 0; $i < count($display); $i++) {
+    if ($display[$i]['machine_name'] == $fields[$i]['machine_name']) {
+      $fields[$i]['column'] = $display[$i]['column'];
+      $fields[$i]['sort'] = $display[$i]['sort'];
+      $fields[$i]['status'] = $display[$i]['status'];
+      $fields[$i]['weight'] = $display[$i]['weight'];
+    }
+  }
+
+  uasort($fields, function($a, $b) {
     if ($a['weight'] == $b['weight'])
       return 0;
     return $a['weight'] < $b['weight'] ? -1 : 1;
   });
-  $display = array_values($display);
-  variable_set('ting_ext_search_display_settings', $display);
+
+
+  $fields = array_values($fields);
+  variable_set('ting_ext_search_fields_settings', $fields);
 }
