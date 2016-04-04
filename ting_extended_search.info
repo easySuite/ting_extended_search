@@ -8,6 +8,5 @@ dependencies[] = strongarm
 configure = admin/config/ting/extented_search
 features[ctools][] = strongarm:strongarm:1
 features[features_api][] = api:2
-features[variable][] = ting_ext_search_display_settings
 features[variable][] = ting_ext_search_fields_settings
-mtime = 1454590383
+mtime = 1459764424

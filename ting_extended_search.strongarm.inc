@@ -13,10 +13,18 @@ function ting_extended_search_strongarm() {
   $strongarm = new stdClass();
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
-  $strongarm->name = 'ting_ext_search_display_settings';
+  $strongarm->name = 'ting_ext_search_fields_settings';
   $strongarm->value = array(
     0 => array(
       'title' => 'Title',
+      'machine_name' => 'title',
+      'placeholder' => 'Enter title',
+      'index' => 'dkcclterm.ti',
+      'type' => 'textfield',
+      'values' => array(
+        'type' => 'ting_well_types',
+        'list' => '',
+      ),
       'column' => 'left',
       'sort' => 'alphabetic_asc',
       'status' => 1,
@@ -24,6 +32,14 @@ function ting_extended_search_strongarm() {
     ),
     1 => array(
       'title' => 'Source',
+      'machine_name' => 'source',
+      'placeholder' => 'Choose source',
+      'index' => 'facet.acSource',
+      'type' => 'select',
+      'values' => array(
+        'type' => 'ting_well_sources',
+        'list' => '',
+      ),
       'column' => 'right',
       'sort' => 'alphabetic_asc',
       'status' => 1,
@@ -31,6 +47,14 @@ function ting_extended_search_strongarm() {
     ),
     2 => array(
       'title' => 'Material type',
+      'machine_name' => 'material_type',
+      'placeholder' => 'Material type',
+      'index' => 'term.type',
+      'type' => 'select',
+      'values' => array(
+        'type' => 'ting_well_types',
+        'list' => '',
+      ),
       'column' => 'right',
       'sort' => 'alphabetic_asc',
       'status' => 1,
@@ -38,35 +62,7 @@ function ting_extended_search_strongarm() {
     ),
     3 => array(
       'title' => 'Author',
-      'column' => 'left',
-      'sort' => 'alphabetic_asc',
-      'status' => 1,
-      'weight' => '-7',
-    ),
-    4 => array(
-      'title' => 'Branch',
-      'column' => 'right',
-      'sort' => 'alphabetic_asc',
-      'status' => 1,
-      'weight' => '-6',
-    ),
-    5 => array(
-      'title' => 'Language',
-      'column' => 'right',
-      'sort' => 'alphabetic_asc',
-      'status' => 1,
-      'weight' => '-5',
-    ),
-  );
-  $export['ting_ext_search_display_settings'] = $strongarm;
-
-  $strongarm = new stdClass();
-  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
-  $strongarm->api_version = 1;
-  $strongarm->name = 'ting_ext_search_fields_settings';
-  $strongarm->value = array(
-    0 => array(
-      'title' => 'Author',
+      'machine_name' => 'author',
       'placeholder' => 'Enter author',
       'index' => 'term.creator',
       'type' => 'textfield',
@@ -74,21 +70,29 @@ function ting_extended_search_strongarm() {
         'type' => 'ting_well_types',
         'list' => '',
       ),
+      'column' => 'left',
+      'sort' => 'alphabetic_asc',
+      'status' => 1,
+      'weight' => '-7',
     ),
-    1 => array(
+    4 => array(
       'title' => 'Branch',
+      'machine_name' => 'branch',
       'placeholder' => 'Choose language branch',
       'index' => 'facet.branch',
       'type' => 'select',
       'values' => array(
         'type' => 'pickup_branches',
-        'list' => 'ting_well_types|vget(\'ting_well_types\')
-ting_well_sources|vget(\'ting_well_sources\')
-pickup_branches|provider(\'pickup_branches\')',
+        'list' => '',
       ),
+      'column' => 'right',
+      'sort' => 'alphabetic_asc',
+      'status' => 1,
+      'weight' => '-6',
     ),
-    2 => array(
+    5 => array(
       'title' => 'Language',
+      'machine_name' => 'language',
       'placeholder' => 'Language',
       'index' => 'term.language',
       'type' => 'select',
@@ -101,38 +105,10 @@ pickup_branches|provider(\'pickup_branches\')',
           'fransk' => 'Francoise',
         ),
       ),
-    ),
-    3 => array(
-      'title' => 'Material type',
-      'placeholder' => 'Material type',
-      'index' => 'term.type',
-      'type' => 'select',
-      'values' => array(
-        'type' => 'ting_well_types',
-        'list' => '',
-      ),
-    ),
-    4 => array(
-      'title' => 'Source',
-      'placeholder' => 'Choose source',
-      'index' => 'facet.acSource',
-      'type' => 'select',
-      'values' => array(
-        'type' => 'ting_well_sources',
-        'list' => 'ting_well_types|vget(\'ting_well_types\')
-ting_well_sources|vget(\'ting_well_sources\')
-pickup_branches|provider(\'pickup_branches\')',
-      ),
-    ),
-    5 => array(
-      'title' => 'Title',
-      'placeholder' => 'Enter title',
-      'index' => 'dkcclterm.ti',
-      'type' => 'textfield',
-      'values' => array(
-        'type' => 'ting_well_types',
-        'list' => '',
-      ),
+      'column' => 'right',
+      'sort' => 'alphabetic_asc',
+      'status' => 1,
+      'weight' => '-5',
     ),
   );
   $export['ting_ext_search_fields_settings'] = $strongarm;
