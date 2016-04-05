@@ -64,11 +64,11 @@ function ting_extended_search_settings_fields_form($form, &$form_state) {
   );
 
   $fields = variable_get('ting_ext_search_fields_settings', array());
+
   if (!isset($form_state['fields_count'])) {
     $form_state['fields_count'] = empty($fields) ? 1 : count($fields);
   }
   $fields_count = $form_state['fields_count'];
-
   $field_types = array(
     'textfield' => t('Textfield'),
     'select' => t('Dropdown'),
@@ -96,6 +96,7 @@ function ting_extended_search_settings_fields_form($form, &$form_state) {
         'source' => array('fields', $i, 'title'),
         'exists' => '_ting_extended_search_field_exists',
       ),
+      '#disabled' => isset($fields[$i]['machine_name']),
     );
 
     $form['fields'][$i]['placeholder'] = array(
@@ -209,7 +210,7 @@ function ting_extended_search_settings_fields_form_validate($form, &$form_state)
 function ting_extended_search_settings_fields_form_submit($form, &$form_state) {
   $fields = $form_state['values']['fields'];
   $fields = array_filter($fields, function($f) {
-    return !empty($f['title']) && !empty($f['placeholder']) && !empty($f['index']) && !empty($f['machine_name']);
+    return !empty($f['title']) && !empty($f['placeholder']) && !empty($f['index']);
   });
 
   uasort($fields, function($a, $b) {
@@ -327,7 +328,6 @@ function ting_extended_search_settings_display_form_submit($form, &$form_state) 
       return 0;
     return $a['weight'] < $b['weight'] ? -1 : 1;
   });
-
 
   $fields = array_values($fields);
   variable_set('ting_ext_search_fields_settings', $fields);

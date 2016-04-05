@@ -175,7 +175,7 @@ function ting_extended_search_form_search_block_form_alter(&$form, &$form_state)
         '#size'          => 30,
         '#maxlength'     => 64,
         '#title'         => $fields[$i]['title'],
-        '#attributes'    => array('placeholder' => $fields[$i]['placeholder']),
+        '#attributes'    => array('placeholder' => t($fields[$i]['placeholder'])),
         '#default_value' => isset($indexes[$fields[$i]['index']]) ? $indexes[$fields[$i]['index']] : '',
       );
     }
@@ -201,7 +201,7 @@ function ting_extended_search_form_search_block_form_alter(&$form, &$form_state)
         krsort($values, $type);
       }
     }
-    $values = array_merge(array('' => $fields[$i]['placeholder']), $values);
+    $values = array_merge(array('' => t($fields[$i]['placeholder'])), $values);
     $form['advanced'][$fields[$i]['column']][$fields[$i]['index']]['#options'] = $values;
   }
 
