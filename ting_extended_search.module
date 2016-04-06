@@ -94,6 +94,10 @@ function ting_extended_search_form_search_block_form_alter(&$form, &$form_state)
 
   $type = _ding_provider_get_provider('reservation');
   $function = $type['module'] . '_' . (isset($type['prefix']) ? $type['prefix'] . '_' : '') . 'pickup_branches';
+  if ($type) {
+    require_once $type['file'];
+  }
+
   $branch_arr = ($type && function_exists($function)) ? ding_provider_invoke('reservation', 'pickup_branches') : array();
   $branch_arr = (!empty($branch_arr)) ? $branch_arr : array();
   $type_arr = drupal_map_assoc(array_keys($ting_well_types));
