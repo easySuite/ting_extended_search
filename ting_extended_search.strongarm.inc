@@ -33,7 +33,7 @@ function ting_extended_search_strongarm() {
     1 => array(
       'title' => 'Author',
       'machine_name' => 'author',
-      'placeholder' => 'Enter author',
+      'placeholder' => 'Enter author name',
       'index' => 'term.creator',
       'type' => 'textfield',
       'values' => array(
@@ -93,7 +93,7 @@ function ting_extended_search_strongarm() {
     5 => array(
       'title' => 'Language',
       'machine_name' => 'language',
-      'placeholder' => 'Language',
+      'placeholder' => 'Choose language',
       'index' => 'term.language',
       'type' => 'select',
       'values' => array(
@@ -132,7 +132,7 @@ function ting_extended_search_strongarm() {
     6 => array(
       'title' => 'Material type',
       'machine_name' => 'material_type',
-      'placeholder' => 'Material type',
+      'placeholder' => 'Choose material type',
       'index' => 'term.type',
       'type' => 'select',
       'values' => array(
@@ -162,7 +162,7 @@ function ting_extended_search_strongarm() {
     8 => array(
       'title' => 'Branch',
       'machine_name' => 'branch',
-      'placeholder' => 'Choose language branch',
+      'placeholder' => 'Choose library branch',
       'index' => 'facet.branch',
       'type' => 'select',
       'values' => array(
