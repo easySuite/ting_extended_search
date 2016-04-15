@@ -94,8 +94,8 @@ function ting_extended_search_form_search_block_form_alter(&$form, &$form_state)
 
   $type = _ding_provider_get_provider('reservation');
   $function = $type['module'] . '_' . (isset($type['prefix']) ? $type['prefix'] . '_' : '') . 'pickup_branches';
-  if ($type) {
-    require_once $type['file'];
+  if (module_exists($type['module'])) {
+    module_load_include('inc', $type['module'], 'includes/' .$type['module'] . '.' .$type['prefix']);
   }
 
   $branch_arr = ($type && function_exists($function)) ? ding_provider_invoke('reservation', 'pickup_branches') : array();
@@ -175,18 +175,18 @@ function ting_extended_search_form_search_block_form_alter(&$form, &$form_state)
 
     if ($fields[$i]['type'] == 'textfield') {
       $form['advanced'][$fields[$i]['column']][$fields[$i]['index']] = array(
-        '#type'          => $fields[$i]['type'],
-        '#size'          => 30,
-        '#maxlength'     => 64,
-        '#title'         => t($fields[$i]['title']),
-        '#attributes'    => array('placeholder' => t($fields[$i]['placeholder'])),
+        '#type' => $fields[$i]['type'],
+        '#size' => 30,
+        '#maxlength' => 64,
+        '#title' => t($fields[$i]['title']),
+        '#attributes' => array('placeholder' => t($fields[$i]['placeholder'])),
         '#default_value' => isset($indexes[$fields[$i]['index']]) ? $indexes[$fields[$i]['index']] : '',
       );
     }
     else {
       $form['advanced'][$fields[$i]['column']][$fields[$i]['index']]= array(
-        '#type'          => $fields[$i]['type'],
-        '#title'         => t(check_plain($fields[$i]['title'])),
+        '#type' => $fields[$i]['type'],
+        '#title' => t(check_plain($fields[$i]['title'])),
         '#default_value' => isset($indexes[$fields[$i]['index']]) ? $indexes[$fields[$i]['index']] : array(),
       );
     }
@@ -206,7 +206,7 @@ function ting_extended_search_form_search_block_form_alter(&$form, &$form_state)
       }
     }
 
-    // Add sorted pptions to the select field types.
+    // Add sorted options to the select field types.
     if ($fields[$i]['type'] != 'textfield') {
       $values = array_merge(array('' => t($fields[$i]['placeholder'])), $values);
       $form['advanced'][$fields[$i]['column']][$fields[$i]['index']]['#options'] = $values;
