@@ -2,7 +2,7 @@
 @import "susy";
 
 // Grid - http://zengrids.com
-@import "zen";
+@import "zen-grids";
 
 /* Colors variables
    ========================================================================== */
@@ -16,9 +16,27 @@ $gray:                    #ccc;
 $black:                   #000;
 $gray-transparent-bg:     rgba( 0, 0, 0, 0.7);
 
-
 // Extended search
 // ========================================================================== //
+.ting-ext-search-col {
+  width: 49%;
+  display: inline-block;
+  float: left;
+
+  .form-radios,
+  .form-checkboxes {
+    line-height: initial;
+
+    .form-radio,
+    .form-checkbox {
+      min-height: initial;
+    }
+  }
+}
+
+#ting-ext-search-left {
+  margin-right: 2%;
+}
 
 .search {
   position: relative;

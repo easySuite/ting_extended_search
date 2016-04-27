@@ -32,14 +32,14 @@ function ting_extended_search_menu() {
   );
 
   $items['admin/config/ting/extented_search/fields'] = array(
-      'title' => 'Ting extended search fields',
-      'description' => 'View and customize ting extended search fields.',
-      'page callback' => 'drupal_get_form',
-      'page arguments' => array('ting_extended_search_settings_fields_form'),
-      'access arguments' => array('access ting extended search settings'),
-      'file' => 'ting_extended_search.admin.inc',
-      'type' => MENU_LOCAL_TASK,
-      'weight' => -9,
+    'title' => 'Ting extended search fields',
+    'description' => 'View and customize ting extended search fields.',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('ting_extended_search_settings_fields_form'),
+    'access arguments' => array('access ting extended search settings'),
+    'file' => 'ting_extended_search.admin.inc',
+    'type' => MENU_LOCAL_TASK,
+    'weight' => -9,
   );
 
   $items['admin/config/ting/extented_search/display'] = array(
@@ -94,7 +94,12 @@ function ting_extended_search_form_search_block_form_alter(&$form, &$form_state)
 
   $type = _ding_provider_get_provider('reservation');
   $function = $type['module'] . '_' . (isset($type['prefix']) ? $type['prefix'] . '_' : '') . 'pickup_branches';
-  $branch_arr = ($type && function_exists($function)) ? ding_provider_invoke('reservation', 'pickup_branches') : array();
+  if (module_exists($type['module'])) {
+    module_load_include('inc', $type['module'], 'includes/' .$type['module'] . '.' .$type['prefix']);
+  }
+
+  $branch_arr = ($type && function_exists($function)) ? ding_provider_invoke('reservation', 'pickup_branches', FALSE, TRUE) : array();
+  $branch_arr = (!empty($branch_arr)) ? $branch_arr : array();
   $type_arr = drupal_map_assoc(array_keys($ting_well_types));
   $source_arr = drupal_map_assoc(array_keys($ting_well_sources));
 
@@ -107,9 +112,8 @@ function ting_extended_search_form_search_block_form_alter(&$form, &$form_state)
     'ting_well_sources' => $source_arr,
     'pickup_branches' => $branch_arr,
   );
-
   $fields = variable_get('ting_ext_search_fields_settings', array());
-  $display = variable_get('ting_ext_search_display_settings', array());
+
   $fields_names = array();
   foreach ($fields as $field) {
     $fields_names[] = $field['index'];
@@ -152,56 +156,60 @@ function ting_extended_search_form_search_block_form_alter(&$form, &$form_state)
   );
 
   $form['advanced']['left'] = array(
-    '#prefix' => '<div id="ting-ext-search-left">',
+    '#prefix' => '<div class="ting-ext-search-col" id="ting-ext-search-left">',
     '#suffix' => '</div>',
   );
 
   $form['advanced']['right'] = array(
-    '#prefix' => '<div id="ting-ext-search-right">',
+    '#prefix' => '<div class="ting-ext-search-col" id="ting-ext-search-right">',
     '#suffix' => '</div>',
   );
 
   if (!empty($indexes)) {
     $form['advanced']['#collapsed'] = FALSE;
   }
+
   for ($i=0; $i < count($fields); $i++) {
-    if (!$display[$i]['status'])
+    if (!$fields[$i]['status'])
       continue;
+
     if ($fields[$i]['type'] == 'textfield') {
-      $form['advanced'][$display[$i]['column']][$fields[$i]['index']] = array(
+      $form['advanced'][$fields[$i]['column']][$fields[$i]['index']] = array(
         '#type' => $fields[$i]['type'],
         '#size' => 30,
         '#maxlength' => 64,
-        '#title' => $fields[$i]['title'],
-        '#attributes' =>array('placeholder' => $fields[$i]['placeholder']),
+        '#title' => t($fields[$i]['title']),
+        '#attributes' => array('placeholder' => t($fields[$i]['placeholder'])),
         '#default_value' => isset($indexes[$fields[$i]['index']]) ? $indexes[$fields[$i]['index']] : '',
       );
     }
     else {
-      $form['advanced'][$display[$i]['column']][$fields[$i]['index']] = array(
+      $form['advanced'][$fields[$i]['column']][$fields[$i]['index']]= array(
         '#type' => $fields[$i]['type'],
-        '#title' => check_plain($fields[$i]['title']),
-        '#default_value' => isset($indexes[$fields[$i]['index']]) ? $indexes[$fields[$i]['index']] : '',
+        '#title' => t(check_plain($fields[$i]['title'])),
+        '#default_value' => isset($indexes[$fields[$i]['index']]) ? $indexes[$fields[$i]['index']] : array(),
       );
+    }
 
-      if ($fields[$i]['values']['type'] == 'custom_list') {
-        $values = array_merge(array('' => $fields[$i]['placeholder']), $fields[$i]['values']['list']);
-        $form['advanced'][$display[$i]['column']][$fields[$i]['index']]['#options'] = $values;
-      } else {
-        $values = $options[$fields[$i]['values']['type']];
-        if (in_array($display[$i]['sort'], array('alphabetic_asc', 'numeric_asc'))) {
-          $type = $display[$i]['sort'] == 'alphabetic_asc' ? SORT_STRING : SORT_NUMERIC;
-          ksort($values, $type);
-        } else {
-          $type = $display[$i]['sort'] == 'alphabetic_desc' ? SORT_STRING : SORT_NUMERIC;
-          krsort($values, $type);
-        }
-        if ($fields[$i]['values']['type'] == 'dropdown') {
-          $values = array_merge(array('' => $fields[$i]['placeholder']), $values);
-        }
-        array_unshift($values, t('-Any-'));
-        $form['advanced'][$display[$i]['column']][$fields[$i]['index']]['#options'] = $values;
+    if ($fields[$i]['values']['type'] == 'custom_list') {
+      $values = $fields[$i]['values']['list'];
+    }
+    else {
+      $values = $options[$fields[$i]['values']['type']];
+      if (in_array($fields[$i]['sort'], array('alphabetic_asc', 'numeric_asc'))) {
+        $type = $fields[$i]['sort'] == 'alphabetic_asc' ? SORT_STRING : SORT_NUMERIC;
+        ksort($values, $type);
       }
+      else {
+        $type = $fields[$i]['sort'] == 'alphabetic_desc' ? SORT_STRING : SORT_NUMERIC;
+        krsort($values, $type);
+      }
+    }
+
+    // Add sorted options to the select field types.
+    if ($fields[$i]['type'] != 'textfield') {
+      $values = array_merge(array('' => t($fields[$i]['placeholder'])), $values);
+      $form['advanced'][$fields[$i]['column']][$fields[$i]['index']]['#options'] = $values;
     }
   }
 
@@ -217,7 +225,7 @@ function ting_extended_search_form_search_block_form_alter(&$form, &$form_state)
  *
  * @see ting_extended_search_form_search_block_form_alter()
  */
-function ting_extended_search_submit(&$form, &$form_state) {
+function ting_extended_search_submit($form, &$form_state) {
   $controls = array();
   // The search form relies on control of the redirect destination for its
   // functionality, so we override any static destination set in the request,
@@ -296,6 +304,7 @@ function ting_extended_search_submit(&$form, &$form_state) {
  * Theme function for fields settings form.
  */
 function theme_ting_ext_search_fields_table(&$variables) {
+  $rows = array();
   $form = $variables['form'];
   $header = $form['#header'];
   foreach (element_children($form) as $id) {

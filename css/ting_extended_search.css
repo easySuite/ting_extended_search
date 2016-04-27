@@ -21,6 +21,26 @@
    ========================================================================== */
 /* Colors variables
    ========================================================================== */
+.ting-ext-search-col {
+  width: 49%;
+  display: inline-block;
+  float: left;
+}
+.ting-ext-search-col .form-radios,
+.ting-ext-search-col .form-checkboxes {
+  line-height: initial;
+}
+.ting-ext-search-col .form-radios .form-radio,
+.ting-ext-search-col .form-radios .form-checkbox,
+.ting-ext-search-col .form-checkboxes .form-radio,
+.ting-ext-search-col .form-checkboxes .form-checkbox {
+  min-height: initial;
+}
+
+#ting-ext-search-left {
+  margin-right: 2%;
+}
+
 .search {
   position: relative;
 }
@@ -48,11 +68,13 @@
   margin-bottom: 0;
   background-color: #fff;
 }
-.search .collapsible:before, .search .collapsible:after {
+.search .collapsible:before {
   content: "";
   display: table;
 }
 .search .collapsible:after {
+  content: "";
+  display: table;
   clear: both;
 }
 .search .collapsible.collapsed {

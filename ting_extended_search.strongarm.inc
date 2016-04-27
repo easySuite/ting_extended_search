@@ -13,119 +13,11 @@ function ting_extended_search_strongarm() {
   $strongarm = new stdClass();
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
-  $strongarm->name = 'ting_ext_search_display_settings';
-  $strongarm->value = array(
-    0 => array(
-      'title' => 'Title',
-      'column' => 'left',
-      'sort' => 'alphabetic_asc',
-      'status' => 1,
-      'weight' => '-10',
-    ),
-    1 => array(
-      'title' => 'Source',
-      'column' => 'right',
-      'sort' => 'alphabetic_asc',
-      'status' => 1,
-      'weight' => '-9',
-    ),
-    2 => array(
-      'title' => 'Material type',
-      'column' => 'right',
-      'sort' => 'alphabetic_asc',
-      'status' => 1,
-      'weight' => '-8',
-    ),
-    3 => array(
-      'title' => 'Author',
-      'column' => 'left',
-      'sort' => 'alphabetic_asc',
-      'status' => 1,
-      'weight' => '-7',
-    ),
-    4 => array(
-      'title' => 'Branch',
-      'column' => 'right',
-      'sort' => 'alphabetic_asc',
-      'status' => 1,
-      'weight' => '-6',
-    ),
-    5 => array(
-      'title' => 'Language',
-      'column' => 'right',
-      'sort' => 'alphabetic_asc',
-      'status' => 1,
-      'weight' => '-5',
-    ),
-  );
-  $export['ting_ext_search_display_settings'] = $strongarm;
-
-  $strongarm = new stdClass();
-  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
-  $strongarm->api_version = 1;
   $strongarm->name = 'ting_ext_search_fields_settings';
   $strongarm->value = array(
     0 => array(
-      'title' => 'Author',
-      'placeholder' => 'Enter author',
-      'index' => 'term.creator',
-      'type' => 'textfield',
-      'values' => array(
-        'type' => 'ting_well_types',
-        'list' => '',
-      ),
-    ),
-    1 => array(
-      'title' => 'Branch',
-      'placeholder' => 'Choose language branch',
-      'index' => 'facet.branch',
-      'type' => 'select',
-      'values' => array(
-        'type' => 'pickup_branches',
-        'list' => 'ting_well_types|vget(\'ting_well_types\')
-ting_well_sources|vget(\'ting_well_sources\')
-pickup_branches|provider(\'pickup_branches\')',
-      ),
-    ),
-    2 => array(
-      'title' => 'Language',
-      'placeholder' => 'Language',
-      'index' => 'term.language',
-      'type' => 'select',
-      'values' => array(
-        'type' => 'custom_list',
-        'list' => array(
-          'arabisk' => 'Arabik',
-          'dansk' => 'Dansk',
-          'engelsk' => 'English',
-          'fransk' => 'Francoise',
-        ),
-      ),
-    ),
-    3 => array(
-      'title' => 'Material type',
-      'placeholder' => 'Material type',
-      'index' => 'term.type',
-      'type' => 'select',
-      'values' => array(
-        'type' => 'ting_well_types',
-        'list' => '',
-      ),
-    ),
-    4 => array(
-      'title' => 'Source',
-      'placeholder' => 'Choose source',
-      'index' => 'facet.acSource',
-      'type' => 'select',
-      'values' => array(
-        'type' => 'ting_well_sources',
-        'list' => 'ting_well_types|vget(\'ting_well_types\')
-ting_well_sources|vget(\'ting_well_sources\')
-pickup_branches|provider(\'pickup_branches\')',
-      ),
-    ),
-    5 => array(
       'title' => 'Title',
+      'machine_name' => 'title',
       'placeholder' => 'Enter title',
       'index' => 'dkcclterm.ti',
       'type' => 'textfield',
@@ -133,6 +25,172 @@ pickup_branches|provider(\'pickup_branches\')',
         'type' => 'ting_well_types',
         'list' => '',
       ),
+      'column' => 'left',
+      'sort' => 'alphabetic_asc',
+      'status' => 1,
+      'weight' => '-10',
+    ),
+    1 => array(
+      'title' => 'Author',
+      'machine_name' => 'author',
+      'placeholder' => 'Enter author name',
+      'index' => 'term.creator',
+      'type' => 'textfield',
+      'values' => array(
+        'type' => 'ting_well_types',
+        'list' => '',
+      ),
+      'column' => 'left',
+      'sort' => 'alphabetic_asc',
+      'status' => 1,
+      'weight' => '-9',
+    ),
+    2 => array(
+      'title' => 'Subject',
+      'machine_name' => 'subject',
+      'placeholder' => 'Enter subject keywords',
+      'index' => 'term.subject',
+      'type' => 'textfield',
+      'values' => array(
+        'type' => 'ting_well_types',
+        'list' => '',
+      ),
+      'column' => 'left',
+      'sort' => 'alphabetic_asc',
+      'status' => 1,
+      'weight' => '-8',
+    ),
+    3 => array(
+      'title' => 'DK5',
+      'machine_name' => 'dk5',
+      'placeholder' => 'Enter DK5 number',
+      'index' => 'facet.dk5',
+      'type' => 'textfield',
+      'values' => array(
+        'type' => 'ting_well_types',
+        'list' => '',
+      ),
+      'column' => 'left',
+      'sort' => 'alphabetic_asc',
+      'status' => 1,
+      'weight' => '-7',
+    ),
+    4 => array(
+      'title' => 'Year',
+      'machine_name' => 'year',
+      'placeholder' => 'Enter year of publish',
+      'index' => 'facet.date',
+      'type' => 'textfield',
+      'values' => array(
+        'type' => 'ting_well_types',
+        'list' => '',
+      ),
+      'column' => 'left',
+      'sort' => 'alphabetic_asc',
+      'status' => 1,
+      'weight' => '-6',
+    ),
+    5 => array(
+      'title' => 'Language',
+      'machine_name' => 'language',
+      'placeholder' => 'Choose language',
+      'index' => 'term.language',
+      'type' => 'select',
+      'values' => array(
+        'type' => 'custom_list',
+        'list' => array(
+          'arabisk' => "arabisk",
+          'dansk' => "dansk",
+          'engelsk' => "engelsk",
+          'fransk' => "fransk",
+          'italiensk' => "italiensk",
+          'kalaallisut' => "kalaallisut",
+          'kinesisk' => "kinesisk",
+          'kroatisk' => "kroatisk",
+          'kurdisk' => "kurdisk",
+          'latin' => "latin",
+          'norsk' => "norsk",
+          'persisk' => "persisk",
+          'polsk' => "polsk",
+          'russisk' => "russisk",
+          'serbisk' => "serbisk",
+          'somalisk' => "somalisk",
+          'spansk' => "spansk",
+          'svensk' => "svensk",
+          'tamilsk' => "tamilsk",
+          'tyrkisk' => "tyrkisk",
+          'tysk' => "tysk",
+          'urdu' => "urdu",
+          'vietnamesisk' => "vietnamesisk",
+        ),
+      ),
+      'column' => 'right',
+      'sort' => 'alphabetic_asc',
+      'status' => 1,
+      'weight' => '-5',
+    ),
+    6 => array(
+      'title' => 'Material type',
+      'machine_name' => 'material_type',
+      'placeholder' => 'Choose material type',
+      'index' => 'term.type',
+      'type' => 'select',
+      'values' => array(
+        'type' => 'ting_well_types',
+        'list' => '',
+      ),
+      'column' => 'right',
+      'sort' => 'alphabetic_asc',
+      'status' => 1,
+      'weight' => '-4',
+    ),
+    7 => array(
+      'title' => 'Source',
+      'machine_name' => 'source',
+      'placeholder' => 'Choose source',
+      'index' => 'facet.acSource',
+      'type' => 'select',
+      'values' => array(
+        'type' => 'ting_well_sources',
+        'list' => '',
+      ),
+      'column' => 'right',
+      'sort' => 'alphabetic_asc',
+      'status' => 1,
+      'weight' => '-3',
+    ),
+    8 => array(
+      'title' => 'Branch',
+      'machine_name' => 'branch',
+      'placeholder' => 'Choose library branch',
+      'index' => 'facet.branch',
+      'type' => 'select',
+      'values' => array(
+        'type' => 'pickup_branches',
+        'list' => '',
+      ),
+      'column' => 'right',
+      'sort' => 'alphabetic_asc',
+      'status' => 1,
+      'weight' => '-2',
+    ),
+    9 => array(
+      'title' => 'Target audience',
+      'machine_name' => 'choose_target_audience',
+      'placeholder' => 'Choose target audience',
+      'index' => 'facet.category',
+      'type' => 'select',
+      'values' => array(
+        'type' => 'custom_list',
+        'list' => array(
+          'børnematerialer' => 'Children',
+          'voksenmaterialer' => 'Adult',
+        ),
+      ),
+      'column' => 'right',
+      'sort' => 'alphabetic_asc',
+      'status' => 1,
+      'weight' => '-1',
     ),
   );
   $export['ting_ext_search_fields_settings'] = $strongarm;
