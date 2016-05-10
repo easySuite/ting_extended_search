@@ -212,91 +212,18 @@ function ting_extended_search_form_search_block_form_alter(&$form, &$form_state)
       $form['advanced'][$fields[$i]['column']][$fields[$i]['index']]['#options'] = $values;
     }
   }
-
-  // Override default search submit callback.
-  if ($form['#submit'][0] === 'ting_search_submit') {
-    unset($form['#submit'][0]);
-    $form['#submit'] = array('ting_extended_search_submit');
-  }
 }
 
 /**
- * Form submission handler for search_block_form().
- *
- * @see ting_extended_search_form_search_block_form_alter()
+ * Implements hook_ting_search_fields().
  */
-function ting_extended_search_submit($form, &$form_state) {
-  $controls = array();
-  // The search form relies on control of the redirect destination for its
-  // functionality, so we override any static destination set in the request,
-  // for example by drupal_access_denied() or drupal_not_found()
-  // (see http://drupal.org/node/292565).
-  if (isset($_GET['destination'])) {
-    unset($_GET['destination']);
-  }
-
-  $form_id = $form['form_id']['#value'];
-  $keys = $form_state['values'][$form_id];
-  $values = $form_state['values']['advanced'];
-
-  $fields = array();
-  foreach ($values as $column) {
-    foreach ($column as $index => $value) {
-      if (!empty($value)) {
-        $fields[] = $index . '=' . (strpos($value, ' ') ? '"' . $value . '"' : $value);
-      }
-    }
-  }
-
-  $q = array();
-  if (!empty($keys)) {
-    $q[] = $keys;
-  }
-  if (!empty($fields)) {
-    $q[] = '(' . implode(' AND ', $fields) . ')';
-  }
-  $q = implode(' AND ', $q);
-
-  $s = $form_state['values']['sort'];
-  if ($s != "") {
-    $controls['sort'] = $s;
-  }
-
-  $s = $form_state['values']['size'];
-  if ($s != "") {
-    $controls['size'] = $s;
-  }
-
-  // Check to see if the form was submitted empty.
-  // If it is empty, display an error message.
-  // (This method is used instead of setting #required to TRUE for this field
-  // because that results in a confusing error message.  It would say a plain
-  // "field is required" because the search keywords field has no title.
-  // The error message would also complain about a missing #title field.)
-  if (empty($q)) {
-    form_set_error('keys', t('Please enter some keywords.'));
-  }
-  $search_info = array();
-  $request_path = arg();
-
-  if ($request_path[0] != 'search' || !isset($request_path[1])) {
-    $search_info = search_get_default_module_info();
-  }
-  else {
-    foreach (search_get_info() as $search_engine) {
-      if ($search_engine['path'] == $request_path[1]) {
-        $search_info = $search_engine;
-        break;
-      }
-    }
-  }
-  if (!empty($search_info['path']) && in_array($search_info['module'], variable_get('search_active_modules', array()))) {
-    $form_state['redirect'] = FALSE;
-    $url = 'search/' . $search_info['path'] . '/' . trim($q);
-    drupal_goto($url, array('query' => $controls));
-  }
-  else {
-    form_set_error(NULL, t('Search is currently disabled.'), 'error');
+function ting_extended_search_ting_search_fields_alter(&$fields) {
+  $settings = variable_get('ting_ext_search_fields_settings', array());
+  foreach ($settings as $field) {
+    $fields[$field['machine_name']] = array(
+      'index' => $field['index'],
+      'parents' =>  array('advanced', $field['column'], $field['index']),
+    );
   }
 }
 
