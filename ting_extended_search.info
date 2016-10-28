@@ -1,7 +1,7 @@
 name = Ting extended search
 description = Extended search form for Ting.
 core = 7.x
-package = easyDDB
+package = easyOPAC
 version = 7.x-2.5.0+easy
 dependencies[] = ctools
 dependencies[] = features
