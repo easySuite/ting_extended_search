@@ -209,10 +209,20 @@ function ting_extended_search_settings_fields_form_validate($form, &$form_state)
  */
 function ting_extended_search_settings_fields_form_submit($form, &$form_state) {
   $fields = $form_state['values']['fields'];
+  unset($fields['more']);
   $display = $form_state['fields'];
 
   for ($i = 0; $i < count($fields); $i++) {
     if (isset($display[$i]) && ($display[$i]['machine_name'] == $fields[$i]['machine_name'])) {
+      $display[$i]['title'] = $fields[$i]['title'];
+      $display[$i]['placeholder'] = $fields[$i]['placeholder'];
+      $display[$i]['index'] = $fields[$i]['index'];
+      $display[$i]['type'] = $fields[$i]['type'];
+      $display[$i]['values'] = $fields[$i]['values'];
+    }
+    elseif (!isset($display[$i])) {
+      // Add new items.
+      $display[$i]['machine_name'] = $fields[$i]['machine_name'];
       $display[$i]['title'] = $fields[$i]['title'];
       $display[$i]['placeholder'] = $fields[$i]['placeholder'];
       $display[$i]['index'] = $fields[$i]['index'];
