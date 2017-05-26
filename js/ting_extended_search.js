@@ -47,7 +47,7 @@
   
   $(function () {
     // Extended search button location.
-    $('.search .collapsible .fieldset-legend > a').insertBefore('.site-header .search .form-submit');
+    $('.search .collapsible .fieldset-legend > a').insertBefore('.search .form-submit');
   });
 
   function attachFoldOut() {
