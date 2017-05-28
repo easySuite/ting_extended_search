@@ -38,6 +38,14 @@ $gray-transparent-bg:     rgba( 0, 0, 0, 0.7);
   margin-right: 2%;
 }
 
+.page-search {
+  .search {
+    .form-actions a.fieldset-title {
+        display: none;
+    }
+  }
+}
+
 .search {
   position: relative;
 
@@ -61,7 +69,7 @@ $gray-transparent-bg:     rgba( 0, 0, 0, 0.7);
 
       // Media till-medium
 
-      @include medium() {
+      @include small-medium() {
         display: none;
       }
     }
@@ -125,7 +133,6 @@ $gray-transparent-bg:     rgba( 0, 0, 0, 0.7);
     }
   }
 }
-
 
 // Page search
 
