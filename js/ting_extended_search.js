@@ -49,7 +49,7 @@
     // Extended search button location.
     $('.search .collapsible .fieldset-legend > a').insertBefore('.search .form-submit');
 
-    if (!($('.form-item-ting-field-search').length && ('div.ding-user-header').length) && $('#ting-search-terms-fieldset').length) {
+    if (!($('.form-item-ting-field-search').length && $('div.ding-user-header').length) && $('#ting-search-terms-fieldset').length) {
       $('.search  #search-radios').addClass('two-radio-button');
     }
   });
