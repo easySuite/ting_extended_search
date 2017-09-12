@@ -40,14 +40,33 @@
       $('#search-query-string').text(parts.join(Drupal.t(" AND ")));
     }
   };
-
-  $(document).ready(function() {
-    attachFoldOut();
-  });
   
   $(function () {
     // Extended search button location.
     $('.search .collapsible .fieldset-legend > a').insertBefore('.site-header .search .form-submit');
+
+    attachFoldOut();
+
+    var linkIsClicked = false;
+    $('input.auto-submit').focus(function() {
+      $('a.fieldset-title').css('visibility', 'visible');
+    });
+
+    $('a.fieldset-title').mousedown(function() {
+      // $('input.auto-submit').focus();
+      linkIsClicked = true;
+    });
+
+    $('input.auto-submit').on('blur', function(event) {
+      if(linkIsClicked) {
+        event.stopImmediatePropagation();
+        event.preventDefault();
+        $('input.auto-submit').focus();
+        linkIsClicked = false;
+        return false;
+      }
+      $('a.fieldset-title').css('visibility', 'hidden');
+    });
   });
 
   function attachFoldOut() {
@@ -62,5 +81,5 @@
       })
     }
   }
-})(jQuery);
 
+})(jQuery);

@@ -18,10 +18,27 @@ $gray-transparent-bg:     rgba( 0, 0, 0, 0.7);
 
 // Extended search
 // ========================================================================== //
+
+.ding2-site-template {
+  .site-header {
+    .header-inner {
+      .pane-search-form .form-actions a:first-child {
+        position: absolute;
+        width: 50%;
+        right: 200px;
+        text-align: right;
+        visibility: hidden;
+        padding-right: 10px;
+      }
+    }
+  }
+}
+
 .ting-ext-search-col {
   width: 49%;
   display: inline-block;
   float: left;
+  padding: 10px;
 
   .form-radios,
   .form-checkboxes {
@@ -68,9 +85,15 @@ $gray-transparent-bg:     rgba( 0, 0, 0, 0.7);
   }
 
   .collapsible {
-    @include zen-grid-container();
-    margin-bottom: 0;
+    /*@include zen-grid-container();
+    margin-bottom: 0;*/ 
+    max-width: 660px;
+    margin-left: -400px;
     background-color: $white;
+
+   /* &#edit-advanced {
+      padding: 10px;
+    }*/
 
     &.collapsed {
       padding: 0;
@@ -86,17 +109,21 @@ $gray-transparent-bg:     rgba( 0, 0, 0, 0.7);
       display: none;
     }
 
-    .fieldset-wrapper > .form-item {
-      margin-bottom: 10px;
+    .fieldset-wrapper{
+      float: inherit;
 
-      // Media from-medium
+      > .form-item {
+        margin-bottom: 10px;
 
-      @include from-medium() {
-        $gutter-width: .5em !global;
-        @include span(1 of 2);
+        // Media from-medium
 
-        &:nth-of-type(2n + 2) {
-          @include omega;
+        @include from-medium() {
+          $gutter-width: .5em !global;
+          @include span(1 of 2);
+
+          &:nth-of-type(2n + 2) {
+            @include omega;
+          }
         }
       }
     }
@@ -111,9 +138,8 @@ $gray-transparent-bg:     rgba( 0, 0, 0, 0.7);
     }
 
     input,
-    select {
+    .select-wrapper {
       border-radius: 0;
-      @include min-height(40px);
       width: 100%;
     }
 
