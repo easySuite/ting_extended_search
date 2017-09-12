@@ -21,10 +21,20 @@
    ========================================================================== */
 /* Colors variables
    ========================================================================== */
+.ding2-site-template .site-header .header-inner .pane-search-form .form-actions a:first-child {
+  position: absolute;
+  width: 50%;
+  right: 200px;
+  text-align: right;
+  visibility: hidden;
+  padding-right: 10px;
+}
+
 .ting-ext-search-col {
   width: 49%;
   display: inline-block;
   float: left;
+  padding: 10px;
 }
 .ting-ext-search-col .form-radios,
 .ting-ext-search-col .form-checkboxes {
@@ -65,17 +75,14 @@
   }
 }
 .search .collapsible {
-  margin-bottom: 0;
+  /*@include zen-grid-container();
+  margin-bottom: 0;*/
+  max-width: 660px;
+  margin-left: -400px;
   background-color: #fff;
-}
-.search .collapsible:before {
-  content: "";
-  display: table;
-}
-.search .collapsible:after {
-  content: "";
-  display: table;
-  clear: both;
+  /* &#edit-advanced {
+     padding: 10px;
+   }*/
 }
 .search .collapsible.collapsed {
   padding: 0;
@@ -87,6 +94,9 @@
 }
 .search .collapsible .description {
   display: none;
+}
+.search .collapsible .fieldset-wrapper {
+  float: inherit;
 }
 .search .collapsible .fieldset-wrapper > .form-item {
   margin-bottom: 10px;
@@ -109,11 +119,8 @@
   border: 1px solid #ccc;
 }
 .search .collapsible input,
-.search .collapsible select {
+.search .collapsible .select-wrapper {
   border-radius: 0;
-  min-height: 40px;
-  height: auto !important;
-  height: 40px;
   width: 100%;
 }
 .search .collapsible label {
