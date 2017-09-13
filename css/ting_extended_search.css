@@ -21,10 +21,13 @@
    ========================================================================== */
 /* Colors variables
    ========================================================================== */
-.ding2-site-template .site-header .header-inner .pane-search-form .form-actions a:first-child {
+.ding2-site-template .site-header .header-inner .pane-search-form .form-actions #search-extend-term {
+  right: 170px;
+}
+.ding2-site-template .site-header .header-inner .pane-search-form .form-actions a.extend-search {
   position: absolute;
   width: 50%;
-  right: 200px;
+  right: 60px;
   text-align: right;
   visibility: hidden;
   padding-right: 10px;
