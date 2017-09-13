@@ -43,7 +43,8 @@
   
   $(function () {
     // Extended search button location.
-    $('.search .collapsible .fieldset-legend > a').insertBefore('.site-header .search .form-submit');
+    $('#edit-advanced a.fieldset-title').addClass( "extend-search" );
+    $('.search #edit-advanced .fieldset-legend > a.extend-search').insertBefore('.site-header .search .form-submit');
 
     attachFoldOut();
 
@@ -52,7 +53,7 @@
       $('a.fieldset-title').css('visibility', 'visible');
     });
 
-    $('a.fieldset-title').mousedown(function() {
+    $('.form-actions a.fieldset-title').mousedown(function() {
       // $('input.auto-submit').focus();
       linkIsClicked = true;
     });
@@ -67,6 +68,10 @@
       }
       $('a.fieldset-title').css('visibility', 'hidden');
     });
+
+     if ($('a.search-term').length) {
+      $('a.extend-search').attr('id','search-extend-term');
+    }
   });
 
   function attachFoldOut() {

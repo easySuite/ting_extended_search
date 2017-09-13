@@ -22,13 +22,19 @@ $gray-transparent-bg:     rgba( 0, 0, 0, 0.7);
 .ding2-site-template {
   .site-header {
     .header-inner {
-      .pane-search-form .form-actions a:first-child {
-        position: absolute;
-        width: 50%;
-        right: 200px;
-        text-align: right;
-        visibility: hidden;
-        padding-right: 10px;
+      .pane-search-form .form-actions {
+        #search-extend-term {
+          right: 170px;
+        }
+
+        a.extend-search {
+          position: absolute;
+          width: 50%;
+          right: 60px;
+          text-align: right;
+          visibility: hidden;
+          padding-right: 10px;
+        }
       }
     }
   }
