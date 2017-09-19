@@ -78,6 +78,12 @@
      if ($('a.search-term').length) {
         $('a.extend-search').attr('id','search-extend-term');
       }
+
+  //  $('.search .collapsible .fieldset-legend > a').insertBefore('.search .form-submit');
+
+    if (!($('.form-item-ting-field-search').length && $('div.ding-user-header').length) && $('#ting-search-terms-fieldset').length) {
+      $('#search-radios').addClass('two-radio-button');
+    }
   });
 
   function attachFoldOut() {

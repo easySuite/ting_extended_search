@@ -54,6 +54,14 @@
   margin-right: 2%;
 }
 
+#search-radios.two-radio-button {
+  left: 630px;
+}
+
+.page-search .search .form-actions a.fieldset-title {
+  display: none;
+}
+
 .search {
   position: relative;
 }
