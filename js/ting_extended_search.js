@@ -48,41 +48,47 @@
 
     attachFoldOut();
 
-    var linkIsClicked = false;
-    $('input.auto-submit').focus(function() {
-      $('a.fieldset-title').css('visibility', 'visible');
+    var openedLink = null; 
+    $('input.auto-submit').mousedown(function() {
+      $('input.auto-submit').addClass('extended');
+      $('a.extend-search').css('visibility', 'visible');
     });
 
-    $('.form-actions a.fieldset-title').mousedown(function() {
-      // $('input.auto-submit').focus();
-      linkIsClicked = true;
-    });
-
-    $('input.auto-submit').on('blur', function(event) {
-      if(linkIsClicked) {
-        event.stopImmediatePropagation();
-        event.preventDefault();
-        $('input.auto-submit').focus();
-        linkIsClicked = false;
-        return false;
+    $('.form-actions a.extend-search').click(function(event) {
+      if($(event.target).hasClass('opened')) {
+        openedLink = null;
+        $('.form-actions a.extend-search').removeClass('opened');
+        return;
       }
-      $('a.fieldset-title').css('visibility', 'hidden');
+      $('.form-actions a.extend-search').removeClass('opened');
+      openedLink = $(event.target);
+      openedLink.addClass('opened');
+    });
+
+    $(document).click(function(e) {
+      var $target = $(e.target);
+      e.preventDefault();
+      if(!openedLink && !$target.hasClass('auto-submit') && !$('a.fieldset-title.opened').length) {
+        $('a.extend-search').css('visibility', 'hidden');
+        $('input.auto-submit').removeClass('extended');
+        return;
+      }
     });
 
      if ($('a.search-term').length) {
-      $('a.extend-search').attr('id','search-extend-term');
-    }
+        $('a.extend-search').attr('id','search-extend-term');
+      }
   });
 
   function attachFoldOut() {
     var foldout = Drupal.settings.ting_extended_search["ting_extended_search_foldout_event"];
     if (foldout) {
-      $('.search .collapsible .fieldset-legend > a, .search .form-actions > a.fieldset-title').on('mouseenter', function() {
-        $('.search .form-actions > a.fieldset-title').click();
+      $('.search .collapsible .fieldset-legend > a, .search .form-actions > a.extend-search').on('mouseenter', function() {
+        $('.search .form-actions > a.extend-search').click();
       })
 
       $('#edit-advanced').on('mouseleave', function() {
-        $('.search .form-actions > a.fieldset-title').click();
+        $('.search .form-actions > a.extend-search').click();
       })
     }
   }

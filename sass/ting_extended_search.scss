@@ -158,15 +158,13 @@ $gray-transparent-bg:     rgba( 0, 0, 0, 0.7);
   }
 }
 
-
 // Page search
 
 .page-search {
   .search {
-
-    // Advanced search button
-
-    .form-actions .fieldset-title {
+    .form-actions .fieldset-title.extend-search,
+    #edit-advanced {
+    //  display: none;
 
       // Media from medium
 
@@ -175,4 +173,8 @@ $gray-transparent-bg:     rgba( 0, 0, 0, 0.7);
       }
     }
   }
+}
+
+fieldset#edit-advanced {
+  padding: 0;
 }
