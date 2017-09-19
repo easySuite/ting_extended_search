@@ -132,7 +132,12 @@
 }
 
 @media only screen and (min-width: 769px) {
-  .page-search .search .form-actions .fieldset-title {
+  .page-search .search .form-actions .fieldset-title.extend-search,
+  .page-search .search #edit-advanced {
     margin-top: 0;
   }
+}
+
+fieldset#edit-advanced {
+  padding: 0;
 }
