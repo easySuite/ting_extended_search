@@ -24,6 +24,12 @@
 .ding2-site-template .site-header .header-inner .pane-search-form .form-actions #search-extend-term {
   right: 170px;
 }
+@media (max-width: 1024px) {
+  .ding2-site-template .site-header .header-inner .pane-search-form .form-actions #search-extend-term {
+    right: 140px;
+    width: 60%;
+  }
+}
 .ding2-site-template .site-header .header-inner .pane-search-form .form-actions a.extend-search {
   position: absolute;
   width: 50%;
@@ -94,6 +100,12 @@
   /* &#edit-advanced {
      padding: 10px;
    }*/
+}
+@media (max-width: 1024px) {
+  .search .collapsible {
+    width: 540px;
+    margin-left: -300px;
+  }
 }
 .search .collapsible.collapsed {
   padding: 0;

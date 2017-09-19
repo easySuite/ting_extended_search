@@ -16,6 +16,8 @@ $gray:                    #ccc;
 $black:                   #000;
 $gray-transparent-bg:     rgba( 0, 0, 0, 0.7);
 
+$tablet: "(max-width: 1024px)";
+
 // Extended search
 // ========================================================================== //
 
@@ -25,6 +27,11 @@ $gray-transparent-bg:     rgba( 0, 0, 0, 0.7);
       .pane-search-form .form-actions {
         #search-extend-term {
           right: 170px;
+
+          @media #{$tablet} {
+            right: 140px;
+            width: 60%;
+          }
         }
 
         a.extend-search {
@@ -108,6 +115,11 @@ $gray-transparent-bg:     rgba( 0, 0, 0, 0.7);
     max-width: 660px;
     margin-left: -400px;
     background-color: $white;
+
+    @media #{$tablet} {
+      width: 540px;
+      margin-left: -326px;
+    }
 
    /* &#edit-advanced {
       padding: 10px;
