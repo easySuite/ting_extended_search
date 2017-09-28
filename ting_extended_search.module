@@ -87,6 +87,7 @@ function ting_extended_search_theme($existing, $type, $theme, $path) {
  */
 function ting_extended_search_form_search_block_form_alter(&$form, &$form_state) {
   drupal_add_js(array('ting_extended_search' => array('ting_extended_search_foldout_event' => variable_get('ting_extended_search_foldout_event', 0))), 'setting');
+  drupal_add_js(array('ting_extended_search' => array('ting_extended_search_search_result' => variable_get('ting_extended_search_search_result', 0))), 'setting');
   drupal_add_css(drupal_get_path('module', 'ting_extended_search') . '/css/ting_extended_search.css', array('type' => 'file'));
 
   $ting_well_types = variable_get('ting_well_types', array());

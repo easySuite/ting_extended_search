@@ -34,12 +34,12 @@ $tablet: "(max-width: 1024px)";
           }
         }
 
-        a.extend-search {
+        a.fieldset-title {
           position: absolute;
           width: 50%;
           right: 60px;
           text-align: right;
-          visibility: hidden;
+          display: none;
           padding-right: 10px;
         }
       }
@@ -75,7 +75,10 @@ $tablet: "(max-width: 1024px)";
 .page-search {
   .search {
     .form-actions a.fieldset-title {
+      display: none;
+      #edit-advanced {
         display: none;
+      }
     }
   }
 }
@@ -84,9 +87,7 @@ $tablet: "(max-width: 1024px)";
   position: relative;
 
   // Collapse button
-
   .form-actions {
-
     > a {
       @include min-height(60px);
       display: inline-block;
@@ -94,7 +95,6 @@ $tablet: "(max-width: 1024px)";
       line-height: 60px;
 
       // Media from-medium
-
       @include from-medium() {
         background-color: transparent;
         color: $darker-gray;
@@ -102,7 +102,6 @@ $tablet: "(max-width: 1024px)";
       }
 
       // Media till-medium
-
       @include small-medium() {
         display: none;
       }
@@ -110,8 +109,6 @@ $tablet: "(max-width: 1024px)";
   }
 
   .collapsible {
-    /*@include zen-grid-container();
-    margin-bottom: 0;*/ 
     max-width: 660px;
     margin-left: -400px;
     background-color: $white;
@@ -120,10 +117,6 @@ $tablet: "(max-width: 1024px)";
       width: 540px;
       margin-left: -326px;
     }
-
-   /* &#edit-advanced {
-      padding: 10px;
-    }*/
 
     &.collapsed {
       padding: 0;
@@ -200,4 +193,12 @@ $tablet: "(max-width: 1024px)";
 
 fieldset#edit-advanced {
   padding: 0;
+}
+
+.unset-focus {
+  width: 217% !important;
+
+  &:focus {
+    content: 'none';
+  }
 }
