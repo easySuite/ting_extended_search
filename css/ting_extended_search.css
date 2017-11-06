@@ -21,130 +21,118 @@
    ========================================================================== */
 /* Colors variables
    ========================================================================== */
-.ding2-site-template .site-header .header-inner .pane-search-form .form-actions #search-extend-term {
-  right: 170px;
-}
-@media (max-width: 1024px) {
-  .ding2-site-template .site-header .header-inner .pane-search-form .form-actions #search-extend-term {
-    right: 140px;
-    width: 60%;
-  }
-}
-.ding2-site-template .site-header .header-inner .pane-search-form .form-actions a.fieldset-title {
-  position: absolute;
-  width: 50%;
-  right: 60px;
-  text-align: right;
-  display: none;
-  padding-right: 10px;
+.pane-search-form {
+  width: 75%;
 }
 
-.ting-ext-search-col {
-  width: 49%;
-  display: inline-block;
-  float: left;
-  padding: 10px;
-}
-.ting-ext-search-col .form-radios,
-.ting-ext-search-col .form-checkboxes {
-  line-height: initial;
-}
-.ting-ext-search-col .form-radios .form-radio,
-.ting-ext-search-col .form-radios .form-checkbox,
-.ting-ext-search-col .form-checkboxes .form-radio,
-.ting-ext-search-col .form-checkboxes .form-checkbox {
-  min-height: initial;
+.site-header .header-inner .pane-search-form .form-item-search-block-form {
+  width: 75%;
 }
 
-#ting-ext-search-left {
-  margin-right: 2%;
-}
-
-#search-radios.two-radio-button {
-  left: 630px;
-}
-
-.page-search .search .form-actions a.fieldset-title {
-  display: none;
-}
-.page-search .search .form-actions a.fieldset-title #edit-advanced {
-  display: none;
-}
-
-.search {
+.pane-search-form {
   position: relative;
 }
-.search .form-actions > a {
-  min-height: 60px;
-  height: auto !important;
-  height: 60px;
+.pane-search-form #search-block-form .form-item-search-block-form {
+  width: 75%;
+}
+.pane-search-form #search-block-form .form-actions {
+  float: left;
+  position: absolute;
+  width: auto;
+  right: 197px;
+}
+.pane-search-form #search-block-form .form-actions > a {
+  float: left;
   display: inline-block;
   margin: -2px 10px 0 0;
   line-height: 60px;
+  min-height: 60px;
+  height: auto !important;
+  height: 60px;
 }
 @media only screen and (min-width: 769px) {
-  .search .form-actions > a {
+  .pane-search-form #search-block-form .form-actions > a {
     background-color: transparent;
     color: #333;
     text-decoration: underline;
   }
 }
 @media only screen and (max-width: 768px) {
-  .search .form-actions > a {
+  .pane-search-form #search-block-form .form-actions > a {
     display: none;
   }
 }
-.search .collapsible {
-  max-width: 660px;
-  margin-left: -400px;
+.pane-search-form #search-block-form .form-actions .extended-search-submit {
+  width: 24%;
+}
+.pane-search-form #search-block-form #ting-extended-search-fieldset {
+  width: 76%;
+  float: left;
+  padding: 0;
   background-color: #fff;
 }
+.pane-search-form #search-block-form #ting-extended-search-fieldset .ting-ext-search-col {
+  width: 49%;
+  display: inline-block;
+  float: left;
+  padding: 10px;
+}
+.pane-search-form #search-block-form #ting-extended-search-fieldset .ting-ext-search-col .form-radios,
+.pane-search-form #search-block-form #ting-extended-search-fieldset .ting-ext-search-col .form-checkboxes {
+  line-height: initial;
+}
+.pane-search-form #search-block-form #ting-extended-search-fieldset .ting-ext-search-col .form-radios .form-radio,
+.pane-search-form #search-block-form #ting-extended-search-fieldset .ting-ext-search-col .form-radios .form-checkbox,
+.pane-search-form #search-block-form #ting-extended-search-fieldset .ting-ext-search-col .form-checkboxes .form-radio,
+.pane-search-form #search-block-form #ting-extended-search-fieldset .ting-ext-search-col .form-checkboxes .form-checkbox {
+  min-height: initial;
+}
 @media (max-width: 1024px) {
-  .search .collapsible {
+  .pane-search-form #search-block-form #ting-extended-search-fieldset {
     width: 540px;
     margin-left: -326px;
   }
 }
-.search .collapsible.collapsed {
+.pane-search-form #search-block-form #ting-extended-search-fieldset.collapsed {
   padding: 0;
   height: 0;
   border: 0;
 }
-.search .collapsible legend {
+.pane-search-form #search-block-form #ting-extended-search-fieldset legend {
   display: none;
 }
-.search .collapsible .description {
+.pane-search-form #search-block-form #ting-extended-search-fieldset .description {
   display: none;
 }
-.search .collapsible .fieldset-wrapper {
-  float: inherit;
+.pane-search-form #search-block-form #ting-extended-search-fieldset .fieldset-wrapper {
+  width: 100%;
 }
-.search .collapsible .fieldset-wrapper > .form-item {
+.pane-search-form #search-block-form #ting-extended-search-fieldset .fieldset-wrapper > .form-item {
   margin-bottom: 10px;
 }
 @media only screen and (min-width: 769px) {
-  .search .collapsible .fieldset-wrapper > .form-item {
+  .pane-search-form #search-block-form #ting-extended-search-fieldset .fieldset-wrapper > .form-item {
     width: 44.44444%;
     float: left;
     margin-right: 11.11111%;
   }
-  .search .collapsible .fieldset-wrapper > .form-item:nth-of-type(2n + 2) {
+  .pane-search-form #search-block-form #ting-extended-search-fieldset .fieldset-wrapper > .form-item:nth-of-type(2n + 2) {
     float: right;
     margin-right: 0;
   }
 }
-.search .collapsible input {
+.pane-search-form #search-block-form #ting-extended-search-fieldset input {
   background-color: #dadada;
   padding-right: 8px;
   padding-left: 8px;
   border: 1px solid #ccc;
 }
-.search .collapsible input,
-.search .collapsible .select-wrapper {
+.pane-search-form #search-block-form #ting-extended-search-fieldset input,
+.pane-search-form #search-block-form #ting-extended-search-fieldset .select-wrapper {
   border-radius: 0;
   width: 100%;
 }
-.search .collapsible label {
+.pane-search-form #search-block-form #ting-extended-search-fieldset label {
   color: #000;
   font-weight: 700;
 }
@@ -155,14 +143,10 @@
     margin-top: 0;
   }
 }
-
-fieldset#edit-advanced {
-  padding: 0;
+.page-search .search #edit-advanced input[type="submit"] {
+  width: 100%;
 }
 
-.unset-focus {
-  width: 217% !important;
-}
-.unset-focus:focus {
-  content: 'none';
+#search-radios.two-radio-button {
+  left: 630px;
 }
