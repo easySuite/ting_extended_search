@@ -22,24 +22,13 @@
 /* Colors variables
    ========================================================================== */
 .pane-search-form {
-  width: 75%;
-}
-
-.site-header .header-inner .pane-search-form .form-item-search-block-form {
-  width: 75%;
-}
-
-.pane-search-form {
   position: relative;
-}
-.pane-search-form #search-block-form .form-item-search-block-form {
-  width: 75%;
 }
 .pane-search-form #search-block-form .form-actions {
   float: left;
   position: absolute;
   width: auto;
-  right: 197px;
+  right: 20%;
 }
 .pane-search-form #search-block-form .form-actions > a {
   float: left;
@@ -65,14 +54,17 @@
 .pane-search-form #search-block-form .form-actions .extended-search-submit {
   width: 24%;
 }
+.pane-search-form #search-block-form .form-item-search-block-form {
+  width: 75%;
+}
 .pane-search-form #search-block-form #ting-extended-search-fieldset {
-  width: 76%;
+  width: 75%;
   float: left;
   padding: 0;
   background-color: #fff;
 }
 .pane-search-form #search-block-form #ting-extended-search-fieldset .ting-ext-search-col {
-  width: 49%;
+  width: 50%;
   display: inline-block;
   float: left;
   padding: 10px;
@@ -86,12 +78,6 @@
 .pane-search-form #search-block-form #ting-extended-search-fieldset .ting-ext-search-col .form-checkboxes .form-radio,
 .pane-search-form #search-block-form #ting-extended-search-fieldset .ting-ext-search-col .form-checkboxes .form-checkbox {
   min-height: initial;
-}
-@media (max-width: 1024px) {
-  .pane-search-form #search-block-form #ting-extended-search-fieldset {
-    width: 540px;
-    margin-left: -326px;
-  }
 }
 .pane-search-form #search-block-form #ting-extended-search-fieldset.collapsed {
   padding: 0;

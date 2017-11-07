@@ -20,24 +20,14 @@ $tablet: "(max-width: 1024px)";
 
 // Extended search
 // ========================================================================== //
-.pane-search-form  {
-  width: 75%;
-}
-.site-header .header-inner .pane-search-form .form-item-search-block-form {
-  width: 75%;
-}
 .pane-search-form {
   position: relative;
   #search-block-form {
-    .form-item-search-block-form {
-      width: 75%;
-    }
-
     .form-actions {
       float: left;
       position: absolute;
       width: auto;
-      right: 197px;
+      right: 20%;
 
       > a {
         float: left;
@@ -63,13 +53,20 @@ $tablet: "(max-width: 1024px)";
         width: 24%;
       }
     }
+
+    .form-item-search-block-form {
+      width: 75%;
+    }
+
+
+
     #ting-extended-search-fieldset {
-      width: 76%;
+      width: 75%;
       float: left;
       padding: 0;
 
       .ting-ext-search-col {
-        width: 49%;
+        width: 50%;
         display: inline-block;
         float: left;
         padding: 10px;
@@ -86,11 +83,6 @@ $tablet: "(max-width: 1024px)";
       }
 
       background-color: $white;
-
-      @media #{$tablet} {
-        width: 540px;
-        margin-left: -326px;
-      }
 
       &.collapsed {
         padding: 0;
