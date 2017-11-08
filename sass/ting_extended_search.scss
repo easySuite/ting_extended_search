@@ -6,7 +6,6 @@
 
 /* Colors variables
    ========================================================================== */
-
 $white:                   #fff;
 $dark-gray:               #ccc;
 $darker-gray:             #333;
@@ -49,16 +48,14 @@ $tablet: "(max-width: 1024px)";
           display: none;
         }
       }
-      .extended-search-submit {
-        width: 24%;
+      input[type="submit"] {
+        width: 35%;
       }
     }
 
     .form-item-search-block-form {
       width: 75%;
     }
-
-
 
     #ting-extended-search-fieldset {
       width: 75%;
@@ -137,28 +134,4 @@ $tablet: "(max-width: 1024px)";
       }
     }
   }
-
-}
-
-// Page search
-.page-search {
-  .search {
-    .form-actions .fieldset-title.extend-search,
-    #edit-advanced {
-
-      // Media from medium
-      @include from-medium() {
-        margin-top: 0;
-      }
-    }
-    #edit-advanced {
-      input[type="submit"] {
-        width: 100%;
-      }
-    }
-  }
-}
-
-#search-radios.two-radio-button {
-  left: 630px;
 }

@@ -46,14 +46,21 @@
 
   function attachFoldOut() {
     $('.search .collapsible .fieldset-legend > a, .search .form-actions > a.fieldset-title').on('mouseenter', function() {
-      $('.search .form-actions > a.fieldset-title').click();
-      $('.search .form-actions > a.fieldset-title').removeClass('closed');
-      $('.search .form-actions > a.fieldset-title').addClass('opened');
+      $(this).click();
     });
-    $('#edit-advanced').on('mouseleave', function () {
-      $('.search .form-actions > a.fieldset-title').click();
-      $('.search .form-actions > a.fieldset-title').addClass('closed');
-      $('.search .form-actions > a.fieldset-title').removeClass('opened');
+    $('fieldset').on('mouseleave', function () {
+      Drupal.toggleFieldset(this);
     });
   }
+
+  // Extend toggleFiledset function in order to collapse other fieldsets.
+  Drupal.toggleFieldset = (function(toggleFieldset){
+    return function() {
+      // Call original function from collapse.js
+      toggleFieldset.apply(this, arguments);
+      // Add collapsed class to other fieldsets.
+      $('fieldset').not(arguments[0]).addClass('collapsed');
+    };
+  })(Drupal.toggleFieldset);
+
 })(jQuery);

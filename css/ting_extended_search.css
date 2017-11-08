@@ -51,8 +51,8 @@
     display: none;
   }
 }
-.pane-search-form #search-block-form .form-actions .extended-search-submit {
-  width: 24%;
+.pane-search-form #search-block-form .form-actions input[type="submit"] {
+  width: 35%;
 }
 .pane-search-form #search-block-form .form-item-search-block-form {
   width: 75%;
@@ -121,18 +121,4 @@
 .pane-search-form #search-block-form #ting-extended-search-fieldset label {
   color: #000;
   font-weight: 700;
-}
-
-@media only screen and (min-width: 769px) {
-  .page-search .search .form-actions .fieldset-title.extend-search,
-  .page-search .search #edit-advanced {
-    margin-top: 0;
-  }
-}
-.page-search .search #edit-advanced input[type="submit"] {
-  width: 100%;
-}
-
-#search-radios.two-radio-button {
-  left: 630px;
 }
