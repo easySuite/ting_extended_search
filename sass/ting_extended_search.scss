@@ -1,27 +1,33 @@
 @import "../../../themes/ddbasic/sass/_base.scss";
 @import "susy";
 
-/* Colors variables
-   ========================================================================== */
-$white:                   #fff;
-$dark-gray:               #ccc;
-$darker-gray:             #333;
-$light-gray:              #dadada;
-$lighter-gray:            #e5e5e5;
-$gray:                    #ccc;
-$black:                   #000;
-$gray-transparent-bg:     rgba( 0, 0, 0, 0.7);
-
 // Extended search
 // ========================================================================== //
+.page-search {
+  .pane-search-form #search-block-form {
+    .form-actions {
+      width: 280px;
+      right: 1px;
+
+      @include media($mobile) {
+        width: 70px;
+      }
+    }
+  }
+}
+
 .pane-search-form {
   position: relative;
   #search-block-form {
     .form-actions {
       float: left;
       position: absolute;
-      width: auto;
-      right: 20%;
+      min-width: 410px;
+      right: 10%;
+
+      @include media($mobile) {
+        min-width: 50px;
+      }
 
       > a {
         float: left;
@@ -33,17 +39,27 @@ $gray-transparent-bg:     rgba( 0, 0, 0, 0.7);
         // Media from-medium
         @include media($tablet) {
           background-color: transparent;
-          color: $darker-gray;
+          color: $grey-dark;
           text-decoration: underline;
         }
 
         // Media till-medium
         @include media($mobile) {
           display: none;
+          padding: 0;
+          margin: 0;
+          .element-invisible {
+            display: none;
+            height: 0
+          }
         }
       }
       input[type="submit"] {
         width: 35%;
+        @include media($mobile) {
+          float: right;
+          width: 115px;
+        }
       }
     }
 
@@ -91,6 +107,11 @@ $gray-transparent-bg:     rgba( 0, 0, 0, 0.7);
 
       .fieldset-wrapper{
         width: 100%;
+
+        @include media($tablet) {
+          width: 450px;
+        }
+
         > .form-item {
           margin-bottom: 10px;
 
@@ -108,10 +129,10 @@ $gray-transparent-bg:     rgba( 0, 0, 0, 0.7);
 
       // Inputs styles
       input {
-        background-color: $light-gray;
+        background-color: $grey-light;
         padding-right: 8px;
         padding-left: 8px;
-        border: 1px solid $gray;
+        border: 1px solid $grey-medium;
       }
 
       input,
