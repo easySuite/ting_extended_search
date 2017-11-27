@@ -134,7 +134,7 @@ msgid "Extended search form for Ting."
 msgstr "Avanceret søgning til søgefeltet."
 
 #: ting_extended_search.info:0
-msgid "easyDDB"
+msgid "easyOPAC"
 msgstr ""
 
 #: js/ting_extended_search.js:0
