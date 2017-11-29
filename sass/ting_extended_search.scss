@@ -17,22 +17,12 @@
 }
 
 .pane-search-form {
-  position: relative;
   #search-block-form {
     .form-actions {
-      float: left;
-      position: absolute;
-      min-width: 410px;
-      right: 10%;
-
-      @include media($mobile) {
-        min-width: 50px;
-      }
 
       > a {
-        float: left;
-        display: inline-block;
-        margin: -2px 10px 0 0;
+        position: absolute;
+        right: 100px;
         line-height: 60px;
         min-height: 60px;
 
@@ -54,29 +44,17 @@
           }
         }
       }
-      input[type="submit"] {
-        width: 35%;
-        @include media($mobile) {
-          float: right;
-          width: 115px;
-        }
-      }
-    }
-
-    .form-item-search-block-form {
-      width: 75%;
     }
 
     #ting-extended-search-fieldset {
-      width: 75%;
-      float: left;
+      width: 93%;
       padding: 0;
+      background-color: $white;
 
       .ting-ext-search-col {
         width: 50%;
-        display: inline-block;
         float: left;
-        padding: 10px;
+        padding: 15px;
 
         .form-radios,
         .form-checkboxes {
@@ -88,8 +66,6 @@
           }
         }
       }
-
-      background-color: $white;
 
       &.collapsed {
         padding: 0;
@@ -127,24 +103,21 @@
         }
       }
 
-      // Inputs styles
-      input {
-        background-color: $grey-light;
-        padding-right: 8px;
-        padding-left: 8px;
-        border: 1px solid $grey-medium;
-      }
+      // Input and select styles
+      input, .select-wrapper {
+        padding: 0 0 0 10px;
+        border: 1px solid $grey;
+        height: 45px;
 
-      input,
-      .select-wrapper {
-        border-radius: 0;
-        width: 100%;
+        select {
+          padding: unset;
+          height: 45px;
+        }
       }
 
       // Labels
       label {
-        color: $black;
-        font-weight: 700;
+        text-transform: capitalize;
       }
     }
   }
