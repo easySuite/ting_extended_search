@@ -6,6 +6,7 @@
 .page-search {
   .pane-search-form #search-block-form {
     .form-actions {
+      right: 1px;
       @include media($mobile) {
         width: 70px;
       }

@@ -73,6 +73,9 @@
     opacity: 1;
   }
 }
+.page-search .pane-search-form #search-block-form .form-actions {
+  right: 1px;
+}
 @media screen and (max-width: 600px) {
   .page-search .pane-search-form #search-block-form .form-actions {
     width: 70px;
