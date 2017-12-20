@@ -143,6 +143,13 @@ function ting_extended_search_form_search_block_form_alter(&$form, &$form_state)
   if ($show_on_search_page) {
     $form['actions']['submit']['#attributes'] = array('class' => array('extended-search-submit'));
   }
+
+  // Check if ting_search_terms is enabled.
+  $concurent_trigger = FALSE;
+  if (module_exists('ting_search_terms')) {
+    $concurent_trigger = TRUE;
+  }
+
   $path = drupal_get_path('module', 'ting_extended_search');
   $form['advanced'] = array(
     '#type' => 'fieldset',
@@ -164,6 +171,7 @@ function ting_extended_search_form_search_block_form_alter(&$form, &$form_state)
             'ting_extended_search' => array(
               'ting_extended_search_foldout_event' => variable_get('ting_extended_search_foldout_event', 0),
               'ting_extended_search_search_result' => $show_on_search_page,
+              'ting_extended_search_concurent_trigger' => $concurent_trigger,
             ),
           ),
           'type' => 'setting',
