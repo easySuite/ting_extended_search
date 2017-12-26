@@ -7,7 +7,7 @@
 
 (function($) {
   Drupal.behaviors.ting_extended_search = {
-    attach: function (context) {
+    attach: function (context, settings) {
 
       // Extended search button location.
       $('.search .collapsible .fieldset-legend > a', context).insertBefore('.search .form-submit');
@@ -21,6 +21,17 @@
       var advanced_link = $('#search-block-form a.fieldset-title', context);
       var filters_block = $('fieldset#edit-advanced');
       $('#ting-extended-search-fieldset', context).addClass('collapsed');
+
+      if (settings.ting_extended_search.ting_extended_search_concurent_trigger !== false) {
+        var actions = $('form#search-block-form .form-actions', context).find('a');
+        if (actions.length !== 0) {
+          actions.map(function (i, elem) {
+            var content = elem.lastChild.textContent;
+            content = slugify(content);
+            $(elem).attr('id', content);
+          });
+        }
+      }
 
       // Default states.
       advanced_link.addClass('closed');
@@ -43,6 +54,15 @@
       }
     }
   };
+
+  function slugify(text) {
+    return text.toString().toLowerCase()
+        .replace(/\s+/g, '-')           // Replace spaces with -
+        .replace(/[^\w\-]+/g, '')       // Remove all non-word chars
+        .replace(/\-\-+/g, '-')         // Replace multiple - with single -
+        .replace(/^-+/, '')             // Trim - from start of text
+        .replace(/-+$/, '');            // Trim - from end of text
+  }
 
   function attachFoldOut() {
     $('.search .collapsible .fieldset-legend > a, .search .form-actions > a.fieldset-title').on('mouseenter', function() {

@@ -7,7 +7,6 @@
   .pane-search-form #search-block-form {
     .form-actions {
       right: 1px;
-
       @include media($mobile) {
         width: 70px;
       }
@@ -18,12 +17,35 @@
 .pane-search-form {
   #search-block-form {
     .form-actions {
-
       > a {
         position: absolute;
         right: 100px;
         line-height: 60px;
         min-height: 60px;
+
+        // Media from-medium
+        @include media($tablet) {
+          background-color: transparent;
+          color: $grey-dark;
+          text-decoration: underline;
+        }
+
+        // Media till-medium
+        @include media($mobile) {
+          display: none;
+          padding: 0;
+          margin: 0;
+          .element-invisible {
+            display: none;
+            height: 0
+          }
+        }
+      }
+
+      #avanceret-sgning,
+      #advanced-search {
+        position: absolute;
+        right: 200px;
 
         // Media from-medium
         @include media($tablet) {
