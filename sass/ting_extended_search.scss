@@ -17,11 +17,16 @@
 .pane-search-form {
   #search-block-form {
     .form-actions {
-      > a {
+      & a:first-child {
+        margin-right: 135px;
+      }
+
+      & a:only-of-type {
         position: absolute;
         right: 100px;
         line-height: 60px;
         min-height: 60px;
+        margin-right: 0;
 
         // Media from-medium
         @include media($tablet) {
@@ -45,7 +50,6 @@
       #avanceret-sgning,
       #advanced-search {
         position: absolute;
-        right: 200px;
 
         // Media from-medium
         @include media($tablet) {
