@@ -13,8 +13,8 @@
       $('.search .collapsible .fieldset-legend > a', context).insertBefore('.search .form-submit');
 
       // Consider additional dom elements on header.
-      if (!($('.form-item-ting-field-search', context).length && $('div.ding-user-header', context).length) && $('#ting-search-terms-fieldset', context).length) {
-        $('#search-radios').addClass('two-radio-button');
+      if (($('#ting-extended-search-fieldset', context).length && $('#ting-search-terms-fieldset', context).length) && (!($('#search-radios', context).length))) {
+        $('section.search').addClass('search-block-form-extend-terms');
       }
 
       var search_input = $('.form-item-search-block-form input[name=search_block_form]', context);

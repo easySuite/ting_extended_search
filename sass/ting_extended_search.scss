@@ -14,6 +14,24 @@
   }
 }
 
+.mobile-search-is-open .header-inner section.search {
+  @include media($mobile) {
+    padding-bottom: 75px;
+  }
+}
+
+
+.mobile-search-is-open .header-wrapper section.search-block-form-extend-terms {
+  @include media($mobile) {
+    #search-block-form {
+      #ting-extended-search-fieldset {
+        top: 61px;
+        width: 100%;
+      }
+    }
+  }
+}
+
 .pane-search-form {
   #search-block-form {
     .form-actions {
@@ -48,6 +66,17 @@
 
         @include media($mobile) {
           top: 60px;
+          width: 100%;
+          min-width: 150px;
+          min-height: 54px;
+          padding-left: 20px;
+          left: 0;
+          right: inherit;
+          background: $white;
+          display: block;
+          margin: 0;
+          border-radius: 5px;
+          line-height: 60px;
           @include span(3 of 3);
         }
       }
@@ -58,13 +87,6 @@
         line-height: 60px;
         height: 60px;
         margin-right: 0;
-
-        // Media from-medium
-        @include media($tablet) {
-          background-color: transparent;
-          color: $grey-dark;
-          text-decoration: underline;
-        }
 
         // Media till-medium
         @include media($mobile) {
@@ -77,7 +99,6 @@
           padding-left: 20px;
           left: 0;
           right: inherit;
-          background: $white;
           display: block;
           margin: 0;
           border-radius: 5px;
@@ -94,18 +115,8 @@
       #advanced-search {
         position: absolute;
 
-        // Media from-medium
-        @include media($tablet) {
-          background-color: transparent;
-          color: $grey-dark;
-          text-decoration: underline;
-        }
-
         // Media till-medium
         @include media($mobile) {
-          display: none;
-          padding: 0;
-          margin: 0;
           .element-invisible {
             display: none;
             height: 0
@@ -130,6 +141,9 @@
       width: 93%;
       padding: 0;
       background-color: $white;
+      @include media($mobile) {
+        width: 100%;
+      }
 
       .ting-ext-search-col {
         width: 50%;
@@ -153,15 +167,22 @@
       }
 
       @include media($tablet) {
-        height: 285;
+        height: 285px;
         overflow-y: visible;
       }
 
       @include media($mobile) {
-        margin-top: 79px;
-        width: 100%;
-        height: 285px;
-        overflow-y: visible;
+       &:first-child {
+          top: 0;
+          width: 100%;
+          height: 285px;
+          overflow-y: visible;
+        }
+
+        &:only-of-type {
+          top: 61px;
+          width: 100%;
+        }
 
         input,
         input::-webkit-input-placeholder {
