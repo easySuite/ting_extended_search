@@ -14,27 +14,96 @@
   }
 }
 
+.mobile-search-is-open .header-inner section.search {
+  @include media($mobile) {
+    padding-bottom: 75px;
+  }
+}
+
+
+.mobile-search-is-open .header-wrapper section.search-block-form-extend-terms {
+  @include media($mobile) {
+    #search-block-form {
+      #ting-extended-search-fieldset {
+        top: 61px;
+        width: 100%;
+      }
+    }
+  }
+}
+
 .pane-search-form {
   #search-block-form {
     .form-actions {
       > a {
+          position: absolute;
+          right: 100px;
+          line-height: 60px;
+          min-height: 60px;
+          margin-right: 0;
+
+        @include media($mobile) {
+          margin-right:0;
+          width: 100%;
+          min-width: 150px;
+          background: $white;
+          min-height: 54px;
+          padding-left: 20px;
+          left: 0;
+          right: inherit;
+          background: $white;
+          padding: 0;
+          display: block;
+          margin: 0;
+          border-radius: 5px;
+          line-height: 60px;
+        }
+      }
+
+      & a:first-child {
+        margin-right: 135px;
+        min-width: 145px;
+
+        @include media($mobile) {
+          top: 60px;
+          width: 100%;
+          min-width: 150px;
+          min-height: 54px;
+          padding-left: 20px;
+          left: 0;
+          right: inherit;
+          background: $white;
+          display: block;
+          margin: 0;
+          border-radius: 5px;
+          line-height: 60px;
+          @include span(3 of 3);
+        }
+      }
+
+      & a:only-of-type {
         position: absolute;
         right: 100px;
         line-height: 60px;
-        min-height: 60px;
-
-        // Media from-medium
-        @include media($tablet) {
-          background-color: transparent;
-          color: $grey-dark;
-          text-decoration: underline;
-        }
+        height: 60px;
+        margin-right: 0;
 
         // Media till-medium
         @include media($mobile) {
-          display: none;
-          padding: 0;
+          top: 60px;
+          min-width: 145px;
+          margin-right:0;
+          width: 100%;
+          min-width: 150px;
+          height: 54px;
+          padding-left: 20px;
+          left: 0;
+          right: inherit;
+          display: block;
           margin: 0;
+          border-radius: 5px;
+          line-height: 60px;
+         
           .element-invisible {
             display: none;
             height: 0
@@ -45,20 +114,9 @@
       #avanceret-sgning,
       #advanced-search {
         position: absolute;
-        right: 200px;
-
-        // Media from-medium
-        @include media($tablet) {
-          background-color: transparent;
-          color: $grey-dark;
-          text-decoration: underline;
-        }
 
         // Media till-medium
         @include media($mobile) {
-          display: none;
-          padding: 0;
-          margin: 0;
           .element-invisible {
             display: none;
             height: 0
@@ -67,15 +125,35 @@
       }
     }
 
+    .form-actions.form-wrapper {
+      @include media($mobile) {
+        width: 100%;
+  
+        input.form-submit {
+          width: 70px;
+          position: absolute;
+          right: 0;
+        }
+      }
+    }
+
     #ting-extended-search-fieldset {
       width: 93%;
       padding: 0;
       background-color: $white;
+      @include media($mobile) {
+        width: 100%;
+      }
 
       .ting-ext-search-col {
         width: 50%;
         float: left;
         padding: 15px;
+
+        @include media($mobile) {
+          padding: 7px;
+          font-size: 13px;
+        }
 
         .form-radios,
         .form-checkboxes {
@@ -85,6 +163,31 @@
           .form-checkbox {
             min-height: initial;
           }
+        }
+      }
+
+      @include media($tablet) {
+        height: 285px;
+        overflow-y: visible;
+      }
+
+      @include media($mobile) {
+       &:first-child {
+          top: 0;
+          width: 100%;
+          height: 285px;
+          overflow-y: visible;
+        }
+
+        &:only-of-type {
+          top: 61px;
+          width: 100%;
+        }
+
+        input,
+        input::-webkit-input-placeholder {
+            font-size: 12px;
+            line-height: 3;
         }
       }
 
@@ -104,10 +207,6 @@
 
       .fieldset-wrapper{
         width: 100%;
-
-        @include media($tablet) {
-          width: 450px;
-        }
 
         > .form-item {
           margin-bottom: 10px;
@@ -133,6 +232,11 @@
         select {
           padding: unset;
           height: 45px;
+
+          @include media($mobile) {
+            padding-right: 85px;
+            font-size: 12px;
+          }
         }
       }
 

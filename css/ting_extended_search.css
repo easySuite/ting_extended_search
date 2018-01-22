@@ -82,26 +82,92 @@
   }
 }
 
+@media screen and (max-width: 600px) {
+  .mobile-search-is-open .header-inner section.search {
+    padding-bottom: 75px;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .mobile-search-is-open .header-wrapper section.search-block-form-extend-terms #search-block-form #ting-extended-search-fieldset {
+    top: 61px;
+    width: 100%;
+  }
+}
+
 .pane-search-form #search-block-form .form-actions > a {
   position: absolute;
   right: 100px;
   line-height: 60px;
   min-height: 60px;
-}
-@media screen and (max-width: 950px) {
-  .pane-search-form #search-block-form .form-actions > a {
-    background-color: transparent;
-    color: #808285;
-    text-decoration: underline;
-  }
+  margin-right: 0;
 }
 @media screen and (max-width: 600px) {
   .pane-search-form #search-block-form .form-actions > a {
-    display: none;
+    margin-right: 0;
+    width: 100%;
+    min-width: 150px;
+    background: #fff;
+    min-height: 54px;
+    padding-left: 20px;
+    left: 0;
+    right: inherit;
+    background: #fff;
     padding: 0;
+    display: block;
     margin: 0;
+    border-radius: 5px;
+    line-height: 60px;
   }
-  .pane-search-form #search-block-form .form-actions > a .element-invisible {
+}
+.pane-search-form #search-block-form .form-actions a:first-child {
+  margin-right: 135px;
+  min-width: 145px;
+}
+@media screen and (max-width: 600px) {
+  .pane-search-form #search-block-form .form-actions a:first-child {
+    top: 60px;
+    width: 100%;
+    min-width: 150px;
+    min-height: 54px;
+    padding-left: 20px;
+    left: 0;
+    right: inherit;
+    background: #fff;
+    display: block;
+    margin: 0;
+    border-radius: 5px;
+    line-height: 60px;
+    width: 100%;
+    float: left;
+    margin-left: 0;
+    margin-right: 0;
+  }
+}
+.pane-search-form #search-block-form .form-actions a:only-of-type {
+  position: absolute;
+  right: 100px;
+  line-height: 60px;
+  height: 60px;
+  margin-right: 0;
+}
+@media screen and (max-width: 600px) {
+  .pane-search-form #search-block-form .form-actions a:only-of-type {
+    top: 60px;
+    min-width: 145px;
+    margin-right: 0;
+    width: 100%;
+    min-width: 150px;
+    height: 54px;
+    padding-left: 20px;
+    left: 0;
+    right: inherit;
+    display: block;
+    margin: 0;
+    border-radius: 5px;
+    line-height: 60px;
+  }
+  .pane-search-form #search-block-form .form-actions a:only-of-type .element-invisible {
     display: none;
     height: 0;
   }
@@ -109,27 +175,22 @@
 .pane-search-form #search-block-form .form-actions #avanceret-sgning,
 .pane-search-form #search-block-form .form-actions #advanced-search {
   position: absolute;
-  right: 200px;
-}
-@media screen and (max-width: 950px) {
-  .pane-search-form #search-block-form .form-actions #avanceret-sgning,
-  .pane-search-form #search-block-form .form-actions #advanced-search {
-    background-color: transparent;
-    color: #808285;
-    text-decoration: underline;
-  }
 }
 @media screen and (max-width: 600px) {
-  .pane-search-form #search-block-form .form-actions #avanceret-sgning,
-  .pane-search-form #search-block-form .form-actions #advanced-search {
-    display: none;
-    padding: 0;
-    margin: 0;
-  }
   .pane-search-form #search-block-form .form-actions #avanceret-sgning .element-invisible,
   .pane-search-form #search-block-form .form-actions #advanced-search .element-invisible {
     display: none;
     height: 0;
+  }
+}
+@media screen and (max-width: 600px) {
+  .pane-search-form #search-block-form .form-actions.form-wrapper {
+    width: 100%;
+  }
+  .pane-search-form #search-block-form .form-actions.form-wrapper input.form-submit {
+    width: 70px;
+    position: absolute;
+    right: 0;
   }
 }
 .pane-search-form #search-block-form #ting-extended-search-fieldset {
@@ -137,10 +198,21 @@
   padding: 0;
   background-color: #fff;
 }
+@media screen and (max-width: 600px) {
+  .pane-search-form #search-block-form #ting-extended-search-fieldset {
+    width: 100%;
+  }
+}
 .pane-search-form #search-block-form #ting-extended-search-fieldset .ting-ext-search-col {
   width: 50%;
   float: left;
   padding: 15px;
+}
+@media screen and (max-width: 600px) {
+  .pane-search-form #search-block-form #ting-extended-search-fieldset .ting-ext-search-col {
+    padding: 7px;
+    font-size: 13px;
+  }
 }
 .pane-search-form #search-block-form #ting-extended-search-fieldset .ting-ext-search-col .form-radios,
 .pane-search-form #search-block-form #ting-extended-search-fieldset .ting-ext-search-col .form-checkboxes {
@@ -151,6 +223,29 @@
 .pane-search-form #search-block-form #ting-extended-search-fieldset .ting-ext-search-col .form-checkboxes .form-radio,
 .pane-search-form #search-block-form #ting-extended-search-fieldset .ting-ext-search-col .form-checkboxes .form-checkbox {
   min-height: initial;
+}
+@media screen and (max-width: 950px) {
+  .pane-search-form #search-block-form #ting-extended-search-fieldset {
+    height: 285px;
+    overflow-y: visible;
+  }
+}
+@media screen and (max-width: 600px) {
+  .pane-search-form #search-block-form #ting-extended-search-fieldset:first-child {
+    top: 0;
+    width: 100%;
+    height: 285px;
+    overflow-y: visible;
+  }
+  .pane-search-form #search-block-form #ting-extended-search-fieldset:only-of-type {
+    top: 61px;
+    width: 100%;
+  }
+  .pane-search-form #search-block-form #ting-extended-search-fieldset input,
+  .pane-search-form #search-block-form #ting-extended-search-fieldset input::-webkit-input-placeholder {
+    font-size: 12px;
+    line-height: 3;
+  }
 }
 .pane-search-form #search-block-form #ting-extended-search-fieldset.collapsed {
   padding: 0;
@@ -165,11 +260,6 @@
 }
 .pane-search-form #search-block-form #ting-extended-search-fieldset .fieldset-wrapper {
   width: 100%;
-}
-@media screen and (max-width: 950px) {
-  .pane-search-form #search-block-form #ting-extended-search-fieldset .fieldset-wrapper {
-    width: 450px;
-  }
 }
 .pane-search-form #search-block-form #ting-extended-search-fieldset .fieldset-wrapper > .form-item {
   margin-bottom: 10px;
@@ -193,6 +283,12 @@
 .pane-search-form #search-block-form #ting-extended-search-fieldset input select, .pane-search-form #search-block-form #ting-extended-search-fieldset .select-wrapper select {
   padding: unset;
   height: 45px;
+}
+@media screen and (max-width: 600px) {
+  .pane-search-form #search-block-form #ting-extended-search-fieldset input select, .pane-search-form #search-block-form #ting-extended-search-fieldset .select-wrapper select {
+    padding-right: 85px;
+    font-size: 12px;
+  }
 }
 .pane-search-form #search-block-form #ting-extended-search-fieldset label {
   text-transform: capitalize;
