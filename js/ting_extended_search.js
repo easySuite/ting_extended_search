@@ -13,7 +13,7 @@
       $('.search .collapsible .fieldset-legend > a', context).insertBefore('.search .form-submit');
 
       // Consider additional dom elements on header.
-      if (($('#ting-extended-search-fieldset', context).length && $('#ting-search-terms-fieldset', context).length) && (!($('#search-radios', context).length))) {
+      if (($('#ting-extended-search-fieldset', context).length && $('#ting-search-terms-fieldset', context).length)) {
         $('section.search').addClass('search-block-form-extend-terms');
       }
 
