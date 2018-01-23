@@ -86,9 +86,6 @@ function ting_extended_search_theme($existing, $type, $theme, $path) {
  * Implements hook_form_FORM_ID_alter().
  */
 function ting_extended_search_form_search_block_form_alter(&$form, &$form_state) {
-  drupal_add_js(array('ting_extended_search' => array('ting_extended_search_foldout_event' => variable_get('ting_extended_search_foldout_event', 0))), 'setting');
-  drupal_add_css(drupal_get_path('module', 'ting_extended_search') . '/css/ting_extended_search.css', array('type' => 'file'));
-
   $ting_well_types = variable_get('ting_well_types', array());
   $ting_well_sources = variable_get('ting_well_sources', array());
 
@@ -138,19 +135,50 @@ function ting_extended_search_form_search_block_form_alter(&$form, &$form_state)
     $form['search_block_form']['#default_value'] = $search_query;
   }
 
+  // Hide extended search if extended search style is disabled.
+  if (variable_get('ting_search_form_style', TING_SEARCH_FORM_STYLE_NORMAL) !== 'extended') {
+    return array();
+  }
+  $show_on_search_page = variable_get('ting_extended_search_search_result', 0);
+  if ($show_on_search_page) {
+    $form['actions']['submit']['#attributes'] = array('class' => array('extended-search-submit'));
+  }
+
+  // Check if ting_search_terms is enabled.
+  $concurent_trigger = FALSE;
+  if (module_exists('ting_search_terms')) {
+    $concurent_trigger = TRUE;
+  }
+
+  $path = drupal_get_path('module', 'ting_extended_search');
   $form['advanced'] = array(
     '#type' => 'fieldset',
     '#title' => t('Advanced search'),
     '#collapsible' => TRUE,
     '#collapsed' => TRUE,
     '#weight' => '101',
-    '#class' => 'extendsearch-advanced',
+    '#attributes' => array('id' => array('ting-extended-search-fieldset')),
     '#prefix' => '',
     '#suffix' => '',
     '#tree' => TRUE,
     '#attached' => array(
       'js' => array(
-        drupal_get_path('module', 'ting_extended_search') . '/js/ting_extended_search.js',
+        array(
+          'data' => $path . '/js/ting_extended_search.js',
+        ),
+        array(
+          'data' => array(
+            'ting_extended_search' => array(
+              'ting_extended_search_foldout_event' => variable_get('ting_extended_search_foldout_event', 0),
+              'ting_extended_search_search_result' => $show_on_search_page,
+              'ting_extended_search_concurent_trigger' => $concurent_trigger,
+            ),
+          ),
+          'type' => 'setting',
+        ),
+      ),
+      'css' => array(
+        $path . '/css/ting_extended_search.css',
       ),
     ),
   );
