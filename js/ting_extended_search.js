@@ -9,6 +9,8 @@
   Drupal.behaviors.ting_extended_search = {
     attach: function (context, settings) {
 
+      if ($('a#flere-sgemuligheder').length) $('a#flere-sgemuligheder').css({ "margin-right": "140px" });
+
       // Extended search button location.
       $('.search .collapsible .fieldset-legend > a', context).insertBefore('.search .form-submit');
 
