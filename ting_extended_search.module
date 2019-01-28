@@ -92,11 +92,19 @@ function ting_extended_search_form_search_block_form_alter(&$form, &$form_state)
   $type = _ding_provider_get_provider('reservation');
   $function = $type['module'] . '_' . (isset($type['prefix']) ? $type['prefix'] . '_' : '') . 'pickup_branches';
   if (module_exists($type['module'])) {
-    module_load_include('inc', $type['module'], 'includes/' .$type['module'] . '.' .$type['prefix']);
+    module_load_include('inc', $type['module'], 'includes/' . $type['module'] . '.' . $type['prefix']);
   }
 
   $branch_arr = ($type && function_exists($function)) ? ding_provider_invoke('reservation', 'pickup_branches', FALSE, TRUE) : array();
-  $branch_arr = (!empty($branch_arr)) ? $branch_arr : array();
+  // For now only the FBS provider has implemented the black listing of the branches.
+  // It will be considered only this provider. With the expectation that in the future
+  // all the providers will implement this.
+  $black_list_branches = variable_get($type['module'] . '_branches_blacklist', array());
+  $branch_arr = array_filter($branch_arr, function ($id) use ($black_list_branches) {
+    return empty($black_list_branches[$id]);
+  },
+    ARRAY_FILTER_USE_KEY);
+
   $type_arr = drupal_map_assoc($ting_well_types);
   $source_arr = drupal_map_assoc($ting_well_sources);
 
