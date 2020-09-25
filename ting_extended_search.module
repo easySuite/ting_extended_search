@@ -325,3 +325,12 @@ function theme_ting_ext_search_display_table(&$variables) {
 
   return $output;
 }
+
+/**
+ * Implements hook_features_pre_restore().
+ */
+function ting_extended_search_features_pre_restore($op, $items) {
+  if (isset($items['ting_extended_search']) && in_array('variable', $items['ting_extended_search'])) {
+    features_feature_lock('ting_extended_search', 'variable');
+  }
+}
