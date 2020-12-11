@@ -330,7 +330,32 @@ function theme_ting_ext_search_display_table(&$variables) {
  * Implements hook_features_pre_restore().
  */
 function ting_extended_search_features_pre_restore($op, $items) {
-  if (isset($items['ting_extended_search']) && in_array('variable', $items['ting_extended_search'])) {
-    features_feature_lock('ting_extended_search', 'variable');
+  $settings = variable_get('ting_ext_search_fields_settings', []);
+  $feature = feature_load('ting_extended_search');
+  $feature_status = features_detect_overrides($feature);
+  $overridden = TRUE;
+  if (!isset($feature_status['variable'])) {
+    return;
+  }
+
+  // Compare 'variable' feature's component state in order to ensure if it was
+  // overridden or not.
+  if ($feature_status['variable']['normal'] == $feature_status['variable']['default']) {
+    $overridden = FALSE;
+  }
+
+  // If we have empty extended search 'settings' variable and the feature is
+  // overridden, then unlock the feature and give the possibility to restore it
+  // to the default state.
+  if (empty($settings) && $overridden == TRUE) {
+    features_feature_unlock('ting_extended_search', 'variable');
+  }
+
+  // If we already have any data in extended search 'settings', then lock this
+  // feature component so it won't be reverted to the default state.
+  if (!empty($settings)) {
+    if (isset($items['ting_extended_search']) && in_array('variable', $items['ting_extended_search'])) {
+      features_feature_lock('ting_extended_search', 'variable');
+    }
   }
 }
