@@ -9,15 +9,29 @@
 function ting_extended_search_install() {
   // Find out the weight of the ting_search module.
   $weight = db_select('system', 's')
-    ->fields('s', array('weight'))
+    ->fields('s', ['weight'])
     ->condition('name', 'ting_search', '=')
     ->execute()
     ->fetchField();
 
   // Set ting_extended_search module to a weight 1 higher.
   db_update('system')
-    ->fields(array('weight' => $weight + 1))
+    ->fields(['weight' => $weight + 1])
     ->condition('name', 'ting_extended_search', '=')
     ->execute();
 }
 
+/**
+ * Replace "facet.branch" well index for Branch field.
+ */
+function ting_extended_search_update_7001(&$sandbox) {
+  $ext_search_settings = variable_get('ting_ext_search_fields_settings');
+
+  foreach ($ext_search_settings as $key => $setting) {
+    if ($setting['machine_name'] === 'branch') {
+      $ext_search_settings[$key]['index'] = 'holdingsitem.branchId';
+    }
+  }
+
+  variable_set('ting_ext_search_fields_settings', $ext_search_settings);
+}

@@ -163,7 +163,7 @@ function ting_extended_search_strongarm() {
       'title' => 'Branch',
       'machine_name' => 'branch',
       'placeholder' => 'Choose library branch',
-      'index' => 'facet.branch',
+      'index' => 'holdingsitem.branchId',
       'type' => 'select',
       'values' => array(
         'type' => 'pickup_branches',

@@ -108,6 +108,14 @@ function ting_extended_search_form_search_block_form_alter(&$form, &$form_state)
   $type_arr = drupal_map_assoc($ting_well_types);
   $source_arr = drupal_map_assoc($ting_well_sources);
 
+  // Remove "DK-" prefix from library id, because 'holdingsitem.branchId' don't
+  // accept such identifiers.
+  foreach ($branch_arr as $id => $item) {
+    unset($branch_arr[$id]);
+    $parts = explode('-', $id);
+    $branch_arr[$parts[1]] = $item;
+  }
+
   asort($type_arr);
   asort($branch_arr);
   asort($source_arr);
@@ -244,7 +252,7 @@ function ting_extended_search_form_search_block_form_alter(&$form, &$form_state)
 
     // Add sorted options to the select field types.
     if ($fields[$i]['type'] != 'textfield') {
-      $values = array_merge(array('' => t($fields[$i]['placeholder'])), $values);
+      $values = array('' => t($fields[$i]['placeholder'])) + $values;
       $form['advanced'][$fields[$i]['column']][$fields[$i]['index']]['#options'] = $values;
     }
   }
